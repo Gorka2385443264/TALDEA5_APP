@@ -1,23 +1,10 @@
 package erronka3_talde5;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import java.awt.*;
+import java.sql.*;
 
 public class main extends JFrame {
 
@@ -77,17 +64,17 @@ public class main extends JFrame {
             String correo = pregunta1.getText();
             String pass = pregunta2.getText();
             try {
-            	
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM iniciarsesion WHERE korreoa = ? AND pasahitza = ?");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM bezeroa WHERE korreoa = ? AND pasahitza = ?");
                 pstmt.setString(1, correo);
                 pstmt.setString(2, pass);
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
-                    // Si se encuentra una coincidencia, mostrar un mensaje de éxito
-                    System.out.println("Inicio de sesión exitoso.");
+                    // Si se encuentra una coincidencia, abrir la ventana de langilea
+                    langilea ventanaLangilea = new langilea();
+                    ventanaLangilea.setVisible(true);
+                    dispose(); // Cerrar la ventana actual de inicio de sesión
                 } else {
-                    // Si no se encuentra coincidencia, mostrar un mensaje de error
-                    System.out.println("Correo electrónico o contraseña incorrectos.");
+                    JOptionPane.showMessageDialog(null, "Correo electrónico o contraseña incorrectos.");
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -108,25 +95,31 @@ public class main extends JFrame {
         GroupLayout gl_panel_1 = new GroupLayout(panel_1);
         gl_panel_1.setHorizontalGroup(
             gl_panel_1.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(gl_panel_1.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(gl_panel_1.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(GroupLayout.Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+                    .addContainerGap(194, Short.MAX_VALUE)
+                    .addComponent(btnEnter)
+                    .addGap(175))
+                .addGroup(GroupLayout.Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+                    .addContainerGap(171, Short.MAX_VALUE)
+                    .addGroup(gl_panel_1.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addComponent(pregunta1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pregunta2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnEnter))
-                    .addContainerGap(288, Short.MAX_VALUE))
+                        .addComponent(pregunta2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(159))
         );
         gl_panel_1.setVerticalGroup(
             gl_panel_1.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(gl_panel_1.createSequentialGroup()
-                    .addContainerGap()
+                    .addGap(50)
                     .addComponent(pregunta1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                    .addGap(18)
                     .addComponent(pregunta2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                    .addGap(27)
                     .addComponent(btnEnter)
-                    .addContainerGap(156, Short.MAX_VALUE))
+                    .addContainerGap(91, Short.MAX_VALUE))
         );
         panel_1.setLayout(gl_panel_1);
     }
 }
+
+
+
