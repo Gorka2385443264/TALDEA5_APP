@@ -82,6 +82,11 @@ public class main extends JFrame {
                         mantenitze ventanaMantenitze = new mantenitze();
                         ventanaMantenitze.setVisible(true);
                         dispose(); // Cerrar la ventana actual de inicio de sesión
+                    } else if ("admin".equals(mota)) {
+                        // Si la mota es "admin", abrir la ventana de admin
+                        admin ventanaAdmin = new admin();
+                        ventanaAdmin.setVisible(true);
+                        dispose(); // Cerrar la ventana actual de inicio de sesión
                     } else {
                         JOptionPane.showMessageDialog(null, "El valor de 'mota' no es válido: " + mota);
                     }

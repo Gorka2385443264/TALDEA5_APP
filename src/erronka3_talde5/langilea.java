@@ -9,6 +9,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class langilea extends JFrame {
 
@@ -43,22 +44,35 @@ public class langilea extends JFrame {
 		setContentPane(contentPane);
 		
 		JLabel lblNewLabel = new JLabel("LANGILEA");
+		
+		JButton btnNewButton = new JButton("Erregistroak");
+		
+		JButton btnNewButton_1 = new JButton("Faktura");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(160)
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(184, Short.MAX_VALUE)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(187, Short.MAX_VALUE))
+					.addGap(163))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(29)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnNewButton_1)
+						.addComponent(btnNewButton))
+					.addContainerGap(312, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(97)
+					.addContainerGap()
 					.addComponent(lblNewLabel)
-					.addContainerGap(156, Short.MAX_VALUE))
+					.addGap(43)
+					.addComponent(btnNewButton)
+					.addGap(71)
+					.addComponent(btnNewButton_1)
+					.addContainerGap(87, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
-
 }
