@@ -64,15 +64,27 @@ public class main extends JFrame {
             String correo = pregunta1.getText();
             String pass = pregunta2.getText();
             try {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM bezeroa WHERE korreoa = ? AND pasahitza = ?");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM langilea WHERE korreoa = ? AND pasahitza = ?");
                 pstmt.setString(1, correo);
                 pstmt.setString(2, pass);
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
-                    // Si se encuentra una coincidencia, abrir la ventana de langilea
-                    langilea ventanaLangilea = new langilea();
-                    ventanaLangilea.setVisible(true);
-                    dispose(); // Cerrar la ventana actual de inicio de sesión
+                    // Obtener el valor del campo "mota"
+                    String mota = rs.getString("mota");
+                    // Verificar el valor de "mota" y tomar decisiones en consecuencia
+                    if ("langilea".equals(mota)) {
+                        // Si la mota es "langilea", abrir la ventana de langilea
+                        langilea ventanaLangilea = new langilea();
+                        ventanaLangilea.setVisible(true);
+                        dispose(); // Cerrar la ventana actual de inicio de sesión
+                    } else if ("mantenitze".equals(mota)) {
+                        // Si la mota es "mantenitze", abrir la ventana de mantenitze
+                        mantenitze ventanaMantenitze = new mantenitze();
+                        ventanaMantenitze.setVisible(true);
+                        dispose(); // Cerrar la ventana actual de inicio de sesión
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El valor de 'mota' no es válido: " + mota);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Correo electrónico o contraseña incorrectos.");
                 }
@@ -120,6 +132,3 @@ public class main extends JFrame {
         panel_1.setLayout(gl_panel_1);
     }
 }
-
-
-
