@@ -45,13 +45,28 @@ public class mantenitze extends JFrame {
 		JLabel lblNewLabel = new JLabel("MANTENITZE");
 		
 		JButton btnNewButton = new JButton("Bizikletak konpondu");
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		
+	     JButton btnAtras = new JButton("Atras");
+	        btnAtras.addActionListener(e -> {
+	            // Crear una instancia de la ventana principal
+	            main ventanaMain = new main();
+	            // Hacer visible la ventana principal
+	            ventanaMain.setVisible(true);
+	            // Cerrar la ventana actual de mantenitze
+	            dispose(); 
+	        });
+	        
+	        
+	        
+	        GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(164)
+							.addContainerGap()
+							.addComponent(btnAtras, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+							.addGap(95)
 							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(28)
@@ -61,7 +76,11 @@ public class mantenitze extends JFrame {
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnAtras)))
 					.addGap(35)
 					.addComponent(btnNewButton)
 					.addContainerGap(149, Short.MAX_VALUE))

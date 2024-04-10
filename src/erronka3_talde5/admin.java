@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class admin extends JFrame {
 
@@ -43,5 +44,19 @@ public class admin extends JFrame {
 		JLabel lblNewLabel = new JLabel("admin");
 		lblNewLabel.setBounds(182, 10, 45, 13);
 		contentPane.add(lblNewLabel);
+		
+	     JButton btnAtras = new JButton("Atras");
+	        btnAtras.addActionListener(e -> {
+	            // Crear una instancia de la ventana principal
+	            main ventanaMain = new main();
+	            // Hacer visible la ventana principal
+	            ventanaMain.setVisible(true);
+	            // Cerrar la ventana actual de mantenitze
+	            dispose(); 
+	        });
+	        
+	        
+	        btnAtras.setBounds(10, 10, 59, 21);
+		contentPane.add(btnAtras);
 	}
 }
