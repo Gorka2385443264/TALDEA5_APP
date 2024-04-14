@@ -13,18 +13,11 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-// Importa la clase erregistroakLangilea
-import erronka3_talde5.erregistroakLangilea;
-import javax.swing.JComboBox;
-
 public class langilea extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -40,9 +33,6 @@ public class langilea extends JFrame {
         });
     }
 
-    /**
-     * Create the frame.
-     */
     public langilea() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -83,7 +73,20 @@ public class langilea extends JFrame {
         
         JButton btnNewButton_2 = new JButton("Alokairu historiala");
         
-        JButton btnNewButton_3 = new JButton("Informazio Pertsonala");
+        JButton btnInfoPErts = new JButton("Informazio Pertsonala");
+        btnInfoPErts.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Crear una instancia de la ventana informazioPertsonalaLangilea
+                informazioPertsonalaLangilea ventanaInformazioPertsonala = new informazioPertsonalaLangilea();
+                // Ajustar tamaño y posición de la ventana
+                ventanaInformazioPertsonala.setSize(800, 500);
+                ventanaInformazioPertsonala.setLocationRelativeTo(null);
+                // Hacer visible la ventana informazioPertsonalaLangilea
+                ventanaInformazioPertsonala.setVisible(true);
+                // Cerrar la ventana actual de langilea
+                dispose();
+            }
+        });
         
         JButton btnNewButton_4 = new JButton("Ordainketa Historiala");
         
@@ -107,7 +110,7 @@ public class langilea extends JFrame {
                             .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
                                 .addGroup(gl_contentPane.createSequentialGroup()
                                     .addGap(30)
-                                    .addComponent(btnNewButton_3)
+                                    .addComponent(btnInfoPErts)
                                     .addGap(27))
                                 .addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
                                     .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -133,7 +136,7 @@ public class langilea extends JFrame {
                     .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
                         .addComponent(btnNewButton)
                         .addComponent(btnNewButton_2)
-                        .addComponent(btnNewButton_3))
+                        .addComponent(btnInfoPErts))
                     .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
                         .addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
                             .addComponent(btnNewButton_1)
