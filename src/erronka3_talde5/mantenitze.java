@@ -23,6 +23,8 @@ public class mantenitze extends JFrame {
 			public void run() {
 				try {
 					mantenitze frame = new mantenitze();
+					  frame.setSize(800, 500);
+	                    frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

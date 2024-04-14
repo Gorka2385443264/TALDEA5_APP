@@ -13,9 +13,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
 public class erregistroakLangilea extends JFrame {
@@ -24,7 +24,7 @@ public class erregistroakLangilea extends JFrame {
     private JPanel contentPane;
     private JTable table;
 
-    // Declarar la variable de conexión a la base de datos
+    // Declare the database connection variable
     private Connection conn;
     private JButton btnAtras;
 
@@ -33,7 +33,7 @@ public class erregistroakLangilea extends JFrame {
             public void run() {
                 try {
                     erregistroakLangilea frame = new erregistroakLangilea();
-                    frame.setSize(800,500);
+                    frame.setSize(800, 500);
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
                 } catch (Exception e) {
@@ -51,50 +51,55 @@ public class erregistroakLangilea extends JFrame {
         setContentPane(contentPane);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        
-        JLabel lblNewLabel = new JLabel("Erregistroak");
+        JLabel lblNewLabel = new JLabel("Erregistroak - Langilea");
 
         JScrollPane scrollPane = new JScrollPane();
 
-        // Crear la tabla
+        // Create the table
         table = new JTable();
 
-        // Asociar el JTable con el JScrollPane
+        // Associate the JTable with the JScrollPane
         scrollPane.setViewportView(table);
-        
+
+        // Add horizontal and vertical scrollbars
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        // Set the table to not auto-resize columns
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
         JButton btnAtras = new JButton("Atras");
         btnAtras.addActionListener(e -> {
-            // Crear una instancia de la ventana principal
+            // Create an instance of the main window
             main ventanaMain = new main();
-            // Hacer visible la ventana principal
+            // Make the main window visible
             ventanaMain.setVisible(true);
-            // Cerrar la ventana actual de mantenitze
-            dispose(); 
+            // Close the current window
+            dispose();
         });
-        
-        
-        // Configurar el layout
+
+        // Configure the layout
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-        	gl_contentPane.createParallelGroup(Alignment.LEADING)
+        	gl_contentPane.createParallelGroup(Alignment.TRAILING)
         		.addGroup(gl_contentPane.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(btnAtras, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addGap(20)
-        					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
-        				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addContainerGap()
-        					.addComponent(btnAtras, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-        					.addGap(94)
-        					.addComponent(lblNewLabel)))
-        			.addContainerGap())
+        				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+        					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)
+        					.addContainerGap())
+        				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+        					.addComponent(lblNewLabel)
+        					.addGap(118))))
         );
         gl_contentPane.setVerticalGroup(
         	gl_contentPane.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_contentPane.createSequentialGroup()
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(lblNewLabel)
-        				.addComponent(btnAtras))
+        				.addComponent(btnAtras)
+        				.addComponent(lblNewLabel))
         			.addGap(20)
         			.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
         			.addContainerGap())
@@ -102,22 +107,22 @@ public class erregistroakLangilea extends JFrame {
 
         contentPane.setLayout(gl_contentPane);
 
-        // Obtener datos de la base de datos y cargarlos en la tabla
+        // Get data from the database and load it into the table
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM langilea");
 
-            // Obtener metadatos de la consulta
+            // Get metadata from the query
             DefaultTableModel model = new DefaultTableModel();
 
-            // Agregar columnas al modelo
+            // Add columns to the model
             int columnCount = rs.getMetaData().getColumnCount();
             for (int i = 1; i <= columnCount; i++) {
                 model.addColumn(rs.getMetaData().getColumnLabel(i));
             }
 
-            // Agregar filas al modelo
+            // Add rows to the model
             while (rs.next()) {
                 Object[] row = new Object[columnCount];
                 for (int i = 1; i <= columnCount; i++) {
@@ -126,7 +131,7 @@ public class erregistroakLangilea extends JFrame {
                 model.addRow(row);
             }
 
-            // Establecer el modelo en la tabla
+            // Set the model to the table
             table.setModel(model);
 
             rs.close();
@@ -134,7 +139,7 @@ public class erregistroakLangilea extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // Cerrar la conexión a la base de datos en el bloque finally
+            // Close the database connection in the finally block
             try {
                 if (conn != null) {
                     conn.close();

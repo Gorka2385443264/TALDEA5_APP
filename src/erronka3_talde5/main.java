@@ -23,6 +23,7 @@ public class main extends JFrame {
             public void run() {
                 try {
                     main frame = new main();
+      
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -75,16 +76,22 @@ public class main extends JFrame {
                     if ("langilea".equals(mota)) {
                         // Si la mota es "langilea", abrir la ventana de langilea
                         langilea ventanaLangilea = new langilea();
+                        ventanaLangilea.setSize(800, 500); // Establecer tamaño predeterminado
+                        ventanaLangilea.setLocationRelativeTo(null); // Centrar en la pantalla
                         ventanaLangilea.setVisible(true);
                         dispose(); // Cerrar la ventana actual de inicio de sesión
                     } else if ("mantenitze".equals(mota)) {
                         // Si la mota es "mantenitze", abrir la ventana de mantenitze
                         mantenitze ventanaMantenitze = new mantenitze();
+                        ventanaMantenitze.setSize(800, 500); // Establecer tamaño predeterminado
+                        ventanaMantenitze.setLocationRelativeTo(null); // Centrar en la pantalla
                         ventanaMantenitze.setVisible(true);
                         dispose(); // Cerrar la ventana actual de inicio de sesión
                     } else if ("admin".equals(mota)) {
                         // Si la mota es "admin", abrir la ventana de admin
                         admin ventanaAdmin = new admin();
+                        ventanaAdmin.setSize(800, 500); // Establecer tamaño predeterminado
+                        ventanaAdmin.setLocationRelativeTo(null); // Centrar en la pantalla
                         ventanaAdmin.setVisible(true);
                         dispose(); // Cerrar la ventana actual de inicio de sesión
                     } else {
