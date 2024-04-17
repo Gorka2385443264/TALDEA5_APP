@@ -64,8 +64,14 @@ public class erregistroakLangilea extends JFrame {
 
         JButton btnAtras = new JButton("Atras");
         btnAtras.addActionListener(e -> {
-            main ventanaMain = new main();
-            ventanaMain.setVisible(true);
+            // Crear una instancia de la ventana langilea
+            langilea ventanaLangilea = new langilea();
+            // Ajustar tamaño y posición de la ventana
+            ventanaLangilea.setSize(800, 500);
+            ventanaLangilea.setLocationRelativeTo(null);
+            // Hacer visible la ventana langilea
+            ventanaLangilea.setVisible(true);
+            // Cerrar la ventana actual de alokairuHistorialaLangilea
             dispose();
         });
 

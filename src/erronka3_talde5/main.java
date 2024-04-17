@@ -12,6 +12,8 @@ public class main extends JFrame {
     private JPanel contentPane;
     private JTextField pregunta1;
     private JTextField pregunta2;
+    private int idUsuario;
+
 
     private Connection conn;
 
@@ -74,6 +76,7 @@ public class main extends JFrame {
                     String mota = rs.getString("mota");
                     // Verificar el valor de "mota" y tomar decisiones en consecuencia
                     if ("langilea".equals(mota)) {
+                        idUsuario = rs.getInt("id_langilea");
                         // Si la mota es "langilea", abrir la ventana de langilea
                         langilea ventanaLangilea = new langilea();
                         ventanaLangilea.setSize(800, 500); // Establecer tamaño predeterminado

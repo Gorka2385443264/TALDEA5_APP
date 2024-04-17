@@ -72,6 +72,19 @@ public class langilea extends JFrame {
         });
         
         JButton btnNewButton_2 = new JButton("Alokairu historiala");
+        btnNewButton_2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Crear una instancia de la ventana alokairuHistorialaLangilea
+                alokairuHistorialaLangilea ventanaAlokairuHistoriala = new alokairuHistorialaLangilea();
+                // Ajustar tamaño y posición de la ventana
+                ventanaAlokairuHistoriala.setSize(800, 500);
+                ventanaAlokairuHistoriala.setLocationRelativeTo(null);
+                // Hacer visible la ventana alokairuHistorialaLangilea
+                ventanaAlokairuHistoriala.setVisible(true);
+                // Cerrar la ventana actual de langilea
+                dispose();
+            }
+        });
         
         JButton btnInfoPErts = new JButton("Informazio Pertsonala");
         btnInfoPErts.addActionListener(new ActionListener() {
@@ -89,9 +102,34 @@ public class langilea extends JFrame {
         });
         
         JButton btnNewButton_4 = new JButton("Ordainketa Historiala");
-        
-        JButton btnNewButton_5 = new JButton("Katalogoa");
-        
+        btnNewButton_4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Crear una instancia de la ventana ordainketaHistorialaLangilea
+                ordainketaHistorialaLangilea ventanaOrdainketaHistoriala = new ordainketaHistorialaLangilea();
+                // Ajustar tamaño y posición de la ventana
+                ventanaOrdainketaHistoriala.setSize(800, 500);
+                ventanaOrdainketaHistoriala.setLocationRelativeTo(null);
+                // Hacer visible la ventana ordainketaHistorialaLangilea
+                ventanaOrdainketaHistoriala.setVisible(true);
+                // Cerrar la ventana actual de langilea
+                dispose();
+            }
+        });
+        JButton 
+        btnNewButton_5 = new JButton("Katalogoa");
+        btnNewButton_5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Crear una instancia de la ventana katalogoaLangilea
+                katalogoaLangilea ventanaKatalogoa = new katalogoaLangilea();
+                // Ajustar tamaño y posición de la ventana
+                ventanaKatalogoa.setSize(800, 500);
+                ventanaKatalogoa.setLocationRelativeTo(null);
+                // Hacer visible la ventana katalogoaLangilea
+                ventanaKatalogoa.setVisible(true);
+                // Cerrar la ventana actual de langilea
+                dispose();
+            }
+        });        
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
             gl_contentPane.createParallelGroup(Alignment.TRAILING)
