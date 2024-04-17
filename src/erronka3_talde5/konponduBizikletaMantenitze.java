@@ -49,7 +49,8 @@ public class konponduBizikletaMantenitze extends JFrame {
     }
 
     public konponduBizikletaMantenitze(int idLangilea) { // Modificar el constructor para recibir el ID del usuario
-    	 this.idLangilea = idLangilea;        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.idLangilea = idLangilea;
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -98,16 +99,16 @@ public class konponduBizikletaMantenitze extends JFrame {
             }
         });
 
-        JButton btnAtras = new JButton("Atras");
+        JButton btnAtras = new JButton("Atrás");
         btnAtras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Crear una instancia de la ventana mantenitze
-                mantenitze ventanaMantenitze = new mantenitze();
+                // Crear una instancia de la ventana trabajoMantenitze
+                trabajoMantenitze ventanaTrabajoMantenitze = new trabajoMantenitze();
                 // Ajustar tamaño y posición de la ventana
-                ventanaMantenitze.setSize(800, 500);
-                ventanaMantenitze.setLocationRelativeTo(null);
-                // Hacer visible la ventana mantenitze
-                ventanaMantenitze.setVisible(true);
+                ventanaTrabajoMantenitze.setSize(800, 500);
+                ventanaTrabajoMantenitze.setLocationRelativeTo(null);
+                // Hacer visible la ventana trabajoMantenitze
+                ventanaTrabajoMantenitze.setVisible(true);
                 // Cerrar la ventana actual de konponduBizikletaMantenitze
                 dispose();
             }

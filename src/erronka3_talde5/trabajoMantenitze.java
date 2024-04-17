@@ -77,52 +77,71 @@ public class trabajoMantenitze extends JFrame {
         textFieldIdMantenua = new JTextField();
         textFieldIdMantenua.setColumns(10);
 
+        JButton btnAtras = new JButton("Atrás");
+        btnAtras.addActionListener(e -> {
+            // Crear una instancia de la ventana konponduBizikletaMantenitze
+            konponduBizikletaMantenitze ventanaKonpondu = new konponduBizikletaMantenitze(1);
+            // Ajustar tamaño y posición de la ventana
+            ventanaKonpondu.setSize(800, 500);
+            ventanaKonpondu.setLocationRelativeTo(null);
+            // Hacer visible la ventana konponduBizikletaMantenitze
+            ventanaKonpondu.setVisible(true);
+            // Cerrar la ventana actual de trabajoMantenitze
+            dispose();
+        });
+
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-        	gl_contentPane.createParallelGroup(Alignment.LEADING)
-        		.addGroup(gl_contentPane.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
-        				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addComponent(lblEgoera)
-        					.addGap(18)
-        					.addComponent(textFieldEgoera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addGap(36)
-        					.addComponent(lblDeskripzioa)
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addGap(18)
-        					.addComponent(btnGuardar)
-        					.addGap(0, 131, Short.MAX_VALUE))
-        				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addComponent(lblNewLabel)
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(lblIdMantenua)
-        					.addGap(29)
-        					.addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        			.addContainerGap())
+            gl_contentPane.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_contentPane.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                            .addComponent(lblEgoera)
+                            .addGap(18)
+                            .addComponent(textFieldEgoera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(36)
+                            .addComponent(lblDeskripzioa)
+                            .addPreferredGap(ComponentPlacement.UNRELATED)
+                            .addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(18)
+                            .addComponent(btnGuardar)
+                            .addPreferredGap(ComponentPlacement.RELATED, 138, Short.MAX_VALUE))
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                            .addComponent(lblNewLabel)
+                            .addPreferredGap(ComponentPlacement.UNRELATED)
+                            .addComponent(lblIdMantenua)
+                            .addGap(18)
+                            .addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED, 137, Short.MAX_VALUE))
+                        .addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+                            .addComponent(btnAtras)
+                            .addGap(9)))
+                    .addContainerGap())
         );
         gl_contentPane.setVerticalGroup(
-        	gl_contentPane.createParallelGroup(Alignment.LEADING)
-        		.addGroup(gl_contentPane.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addComponent(lblNewLabel)
-        				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        					.addComponent(lblIdMantenua)
-        					.addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        					.addComponent(lblEgoera)
-        					.addComponent(lblDeskripzioa)
-        					.addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addComponent(btnGuardar))
-        				.addComponent(textFieldEgoera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(77, Short.MAX_VALUE))
+            gl_contentPane.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_contentPane.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addComponent(lblNewLabel)
+                        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(lblIdMantenua)
+                            .addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(lblEgoera)
+                            .addComponent(lblDeskripzioa)
+                            .addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuardar))
+                        .addComponent(textFieldEgoera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(btnAtras)
+                    .addContainerGap(77, Short.MAX_VALUE))
         );
         contentPane.setLayout(gl_contentPane);
 
