@@ -35,8 +35,8 @@ public class admin extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("admin");
-        lblNewLabel.setBounds(182, 10, 45, 13);
+        JLabel lblNewLabel = new JLabel("Admin ikuspegiak");
+        lblNewLabel.setBounds(345, 14, 112, 13);
         contentPane.add(lblNewLabel);
         
         JButton btnAtras = new JButton("Atras");
@@ -53,8 +53,40 @@ public class admin extends JFrame {
         contentPane.add(btnAtras);
         
         JButton btnLangileaKudeatu = new JButton("Langileak Kudeatu");
-        btnLangileaKudeatu.setBounds(47, 65, 115, 21);
+        btnLangileaKudeatu.setBounds(47, 65, 152, 21);
         contentPane.add(btnLangileaKudeatu);
+        
+        JButton btnMantenutzaileaKudeatu = new JButton("Mantenutzailea kudeatu");
+        btnMantenutzaileaKudeatu.setBounds(47, 138, 196, 21);
+        contentPane.add(btnMantenutzaileaKudeatu);
+        
+        JButton btnNewButton = new JButton("Mantenitzaile");
+        btnNewButton.setBounds(10, 232, 123, 21);
+        contentPane.add(btnNewButton);
+        btnNewButton.addActionListener(e -> {
+            // Crear una instancia de la ventana principal
+            mantenitze ventanaMantenua = new mantenitze();
+            // Hacer visible la ventana principal
+            ventanaMantenua.setSize(getSize());
+            ventanaMantenua.setLocationRelativeTo(null);
+            ventanaMantenua.setVisible(true);
+            // Cerrar la ventana actual de mantenitze
+            dispose(); 
+        });
+        
+        JButton btnLangilea = new JButton("Langilea");
+        btnLangilea.setBounds(158, 232, 123, 21);
+        contentPane.add(btnLangilea);
+        btnLangilea.addActionListener(e -> {
+            // Crear una instancia de la ventana principal
+            langilea ventanaLangilea = new langilea();
+            // Hacer visible la ventana principal
+            ventanaLangilea.setSize(getSize());
+            ventanaLangilea.setLocationRelativeTo(null);
+            ventanaLangilea.setVisible(true);
+            // Cerrar la ventana actual de mantenitze
+            dispose(); 
+        });
         
         // ActionListener para el botón btnLangileaKudeatu
         btnLangileaKudeatu.addActionListener(e -> {
@@ -67,5 +99,7 @@ public class admin extends JFrame {
             ventanaAdmin.setVisible(true);
             // No cerrar la ventana actual (admin)
         });
+        
+        
     }
 }
