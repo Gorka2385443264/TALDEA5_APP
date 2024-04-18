@@ -13,8 +13,8 @@ public class admin extends JFrame {
     private JPanel contentPane;
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
+ /*       EventQueue.invokeLater(new Runnable() {
+           public void run() {
                 try {
                     admin frame = new admin();
                     frame.setSize(800, 500);
@@ -24,10 +24,10 @@ public class admin extends JFrame {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
     }
 
-    public admin() {
+    public admin(int id_langilea) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
@@ -56,7 +56,7 @@ public class admin extends JFrame {
         btnLangileaKudeatu.setBounds(47, 65, 152, 21);
         contentPane.add(btnLangileaKudeatu);
         btnLangileaKudeatu.addActionListener(e -> {
-            erregistroakAdmin ventanaAdmin = new erregistroakAdmin();
+            erregistroakAdmin ventanaAdmin = new erregistroakAdmin(id_langilea);
             ventanaAdmin.setSize(getSize());
             ventanaAdmin.setLocationRelativeTo(null);
             ventanaAdmin.setVisible(true);
@@ -67,7 +67,7 @@ public class admin extends JFrame {
         btnMantenutzaileaKudeatu.setBounds(47, 138, 196, 21);
         contentPane.add(btnMantenutzaileaKudeatu);
         btnMantenutzaileaKudeatu.addActionListener(e -> {
-        	erregistroakMantentzeAdmin ventanaErreAdmin = new erregistroakMantentzeAdmin();
+            erregistroakMantentzeAdmin ventanaErreAdmin = new erregistroakMantentzeAdmin(id_langilea);
             ventanaErreAdmin.setSize(getSize());
             ventanaErreAdmin.setLocationRelativeTo(null);
             ventanaErreAdmin.setVisible(true);
@@ -96,4 +96,5 @@ public class admin extends JFrame {
             dispose();
         });
     }
+
 }

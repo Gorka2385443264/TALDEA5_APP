@@ -30,7 +30,7 @@ public class erregistroakMantentzeAdmin extends JFrame {
     private Connection conn;
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
+ /*       EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
                     erregistroakMantentzeAdmin frame = new erregistroakMantentzeAdmin();
@@ -41,10 +41,10 @@ public class erregistroakMantentzeAdmin extends JFrame {
                     e.printStackTrace();
                 }
             }
-        });
+        }); */
     }
 
-    public erregistroakMantentzeAdmin() {
+    public erregistroakMantentzeAdmin(int id_langilea) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
         contentPane = new JPanel();
@@ -60,7 +60,7 @@ public class erregistroakMantentzeAdmin extends JFrame {
         JButton btnAtras = new JButton("Atras");
         btnAtras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                admin ventanaAdmin = new  admin();
+                admin ventanaAdmin = new admin(id_langilea);
                 ventanaAdmin.setVisible(true);
                 ventanaAdmin.setSize(getSize());
                 ventanaAdmin.setLocationRelativeTo(null);
@@ -168,6 +168,7 @@ public class erregistroakMantentzeAdmin extends JFrame {
 
         loadData();
     }
+
 
     private void updateMota(int idLangilea, String mota) {
         try {

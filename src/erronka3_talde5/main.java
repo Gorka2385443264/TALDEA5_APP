@@ -2,7 +2,6 @@ package erronka3_talde5;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.sql.*;
 
@@ -12,9 +11,7 @@ public class main extends JFrame {
     private JPanel contentPane;
     private JTextField pregunta1;
     private JTextField pregunta2;
-    private int idUsuario;
-
-
+    private int idUsuario; // Variable para almacenar la ID del usuario
     private Connection conn;
 
     /**
@@ -25,7 +22,7 @@ public class main extends JFrame {
             public void run() {
                 try {
                     main frame = new main();
-      
+        
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -60,7 +57,6 @@ public class main extends JFrame {
 
         pregunta2 = new JTextField();
         pregunta2.setColumns(10);
-
         JButton btnEnter = new JButton("Enter");
         btnEnter.addActionListener(e -> {
             // Verificar las credenciales ingresadas por el usuario
@@ -72,34 +68,35 @@ public class main extends JFrame {
                 pstmt.setString(2, pass);
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
-                    // Obtener el valor del campo "mota"
+                    // Obtener el ID del usuario que ha iniciado sesión
+                    idUsuario = rs.getInt("id_langilea"); // Establece la ID del usuario
+                    System.out.println("ID de usuario: " + idUsuario); // Imprimir la ID del usuario en la consola
+                    // Abrir la ventana correspondiente según el tipo de usuario
                     String mota = rs.getString("mota");
-                    // Verificar el valor de "mota" y tomar decisiones en consecuencia
-                    if ("langilea".equals(mota)) {
-                        idUsuario = rs.getInt("id_langilea");
-                        // Si la mota es "langilea", abrir la ventana de langilea
-                        langilea ventanaLangilea = new langilea();
-                        ventanaLangilea.setSize(800, 500); // Establecer tamaño predeterminado
-                        ventanaLangilea.setLocationRelativeTo(null); // Centrar en la pantalla
-                        ventanaLangilea.setVisible(true);
-                        dispose(); // Cerrar la ventana actual de inicio de sesión
-                    } else if ("mantenitze".equals(mota)) {
-                        // Si la mota es "mantenitze", abrir la ventana de mantenitze
-                        mantenitze ventanaMantenitze = new mantenitze();
-                        ventanaMantenitze.setSize(800, 500); // Establecer tamaño predeterminado
-                        ventanaMantenitze.setLocationRelativeTo(null); // Centrar en la pantalla
-                        ventanaMantenitze.setVisible(true);
-                        dispose(); // Cerrar la ventana actual de inicio de sesión
-                    } else if ("admin".equals(mota)) {
-                        // Si la mota es "admin", abrir la ventana de admin
-                        admin ventanaAdmin = new admin();
-                        ventanaAdmin.setSize(800, 500); // Establecer tamaño predeterminado
-                        ventanaAdmin.setLocationRelativeTo(null); // Centrar en la pantalla
-                        ventanaAdmin.setVisible(true);
-                        dispose(); // Cerrar la ventana actual de inicio de sesión
-                    } else {
-                        JOptionPane.showMessageDialog(null, "El valor de 'mota' no es válido: " + mota);
+                    switch (mota) {
+                        case "langilea":
+                            langilea ventanaLangilea = new langilea();
+                            ventanaLangilea.setSize(800, 500); // Establecer tamaño predeterminado
+                            ventanaLangilea.setLocationRelativeTo(null); // Centrar en la pantalla
+                            ventanaLangilea.setVisible(true);
+                            break;
+                        case "mantenitze":
+                            mantenitze ventanaMantenitze = new mantenitze();
+                            ventanaMantenitze.setSize(800, 500); // Establecer tamaño predeterminado
+                            ventanaMantenitze.setLocationRelativeTo(null); // Centrar en la pantalla
+                            ventanaMantenitze.setVisible(true);
+                            break;
+                        case "admin":
+                            admin ventanaAdmin = new admin(getIdUsuario()); // Pasa el idUsuario al constructor
+                            ventanaAdmin.setSize(800, 500); // Establecer tamaño predeterminado
+                            ventanaAdmin.setLocationRelativeTo(null); // Centrar en la pantalla
+                            ventanaAdmin.setVisible(true);
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "El valor de 'mota' no es válido: " + mota);
+                            break;
                     }
+                    dispose(); // Cerrar la ventana actual de inicio de sesión
                 } else {
                     JOptionPane.showMessageDialog(null, "Correo electrónico o contraseña incorrectos.");
                 }
@@ -145,5 +142,15 @@ public class main extends JFrame {
                     .addContainerGap(91, Short.MAX_VALUE))
         );
         panel_1.setLayout(gl_panel_1);
+    }
+
+    // Getter para obtener el valor de la ID del usuario
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    // Setter para establecer el valor de la ID del usuario
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }
