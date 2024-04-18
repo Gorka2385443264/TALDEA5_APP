@@ -22,7 +22,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.GroupLayout.Alignment;
 
-public class erregistroakAdmin extends JFrame {
+public class erregistroakMantentzeAdmin extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -33,7 +33,7 @@ public class erregistroakAdmin extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    erregistroakAdmin frame = new erregistroakAdmin();
+                    erregistroakMantentzeAdmin frame = new erregistroakMantentzeAdmin();
                     frame.setSize(800, 500);
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
@@ -44,14 +44,14 @@ public class erregistroakAdmin extends JFrame {
         });
     }
 
-    public erregistroakAdmin() {
+    public erregistroakMantentzeAdmin() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
 
-        JLabel lblNewLabel = new JLabel("Erregistroak Langilea - Admin");
+        JLabel lblNewLabel = new JLabel("Erregistroak Mantentze - Admin");
 
         JScrollPane scrollPane = new JScrollPane();
         table = new JTable();

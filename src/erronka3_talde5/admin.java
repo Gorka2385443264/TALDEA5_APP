@@ -67,7 +67,7 @@ public class admin extends JFrame {
         btnMantenutzaileaKudeatu.setBounds(47, 138, 196, 21);
         contentPane.add(btnMantenutzaileaKudeatu);
         btnMantenutzaileaKudeatu.addActionListener(e -> {
-            erregistroakAdmin ventanaErreAdmin = new erregistroakAdmin();
+        	erregistroakMantentzeAdmin ventanaErreAdmin = new erregistroakMantentzeAdmin();
             ventanaErreAdmin.setSize(getSize());
             ventanaErreAdmin.setLocationRelativeTo(null);
             ventanaErreAdmin.setVisible(true);
