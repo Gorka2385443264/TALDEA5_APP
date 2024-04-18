@@ -32,14 +32,16 @@ public class konponduBizikletaMantenitze extends JFrame {
     private Connection conn;
     private JTextField textFieldId;
     private int idLangilea; // Variable para almacenar el ID del usuario
+    private main mainInstance;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    konponduBizikletaMantenitze frame = new konponduBizikletaMantenitze(1); // Aquí puedes proporcionar el ID del usuario que ha iniciado sesión
-                    frame.setSize(800, 500);
-                    frame.setLocationRelativeTo(null);
+                    main mainInstance = new main();
+                    int idLangilea = mainInstance.getIdUsuario();
+                    System.out.println("ID del langilea en konponduBizikletaMantenitze: " + idLangilea);
+                    konponduBizikletaMantenitze frame = new konponduBizikletaMantenitze(mainInstance);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -48,8 +50,13 @@ public class konponduBizikletaMantenitze extends JFrame {
         });
     }
 
-    public konponduBizikletaMantenitze(int idLangilea) { // Modificar el constructor para recibir el ID del usuario
-        this.idLangilea = idLangilea;
+    public konponduBizikletaMantenitze(main mainInstance) {
+        this.mainInstance = mainInstance;
+        initComponents();
+        loadData();
+    }
+
+    private void initComponents() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
         contentPane = new JPanel();
@@ -68,6 +75,7 @@ public class konponduBizikletaMantenitze extends JFrame {
         textFieldId.setColumns(10);
 
         JButton btnKonpondu = new JButton("Konpondu");
+
         btnKonpondu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String idBizikleta = textFieldId.getText().trim();
@@ -77,19 +85,18 @@ public class konponduBizikletaMantenitze extends JFrame {
                         Statement stmt = conn.createStatement();
                         String query = "UPDATE bizikleta SET egoera = 'Mantenimenduan' WHERE id_bizikleta = '" + idBizikleta + "'";
                         stmt.executeUpdate(query);
-                        stmt.close();
                         
-                        // Insertar en la tabla mantenua
                         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        int idLangilea = mainInstance.getIdUsuario();
                         String insertQuery = "INSERT INTO mantenua (id_langilea, id_bizikleta, data, egoera, deskripzioa) VALUES "
-                            + "(" + idLangilea + ", '" + idBizikleta + "', '" + currentDate + "', 'Mantenitze', 'Descripción aquí')";
-                        stmt = conn.createStatement();
+                                + "(" + idLangilea + ", '" + idBizikleta + "', '" + currentDate + "', 'Mantenimenduan', 'Descripción aquí')";
                         stmt.executeUpdate(insertQuery);
-                        stmt.close();
+                        
+                        stmt.close(); // Cerrar el Statement después de ejecutar todas las consultas
                         
                         conn.close();
                         System.out.println("Actualización e inserción exitosas");
-                        loadData(); // Volver a cargar los datos después de la actualización
+                        loadData();
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
@@ -99,72 +106,53 @@ public class konponduBizikletaMantenitze extends JFrame {
             }
         });
 
-        JButton btnAtras = new JButton("Atrás");
-        btnAtras.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Crear una instancia de la ventana trabajoMantenitze
-                trabajoMantenitze ventanaTrabajoMantenitze = new trabajoMantenitze();
-                // Ajustar tamaño y posición de la ventana
-                ventanaTrabajoMantenitze.setSize(800, 500);
-                ventanaTrabajoMantenitze.setLocationRelativeTo(null);
-                // Hacer visible la ventana trabajoMantenitze
-                ventanaTrabajoMantenitze.setVisible(true);
-                // Cerrar la ventana actual de konponduBizikletaMantenitze
-                dispose();
-            }
-        });
-        
+
         JButton btnSiguiente = new JButton("Siguiente");
         btnSiguiente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Crear una instancia de la ventana trabajoMantenitze
-                trabajoMantenitze ventanaTrabajoMantenitze = new trabajoMantenitze();
-                // Ajustar tamaño y posición de la ventana
+                main mainInstance = new main(); // Supongo que tienes una instancia de main disponible
+                int idUsuario = mainInstance.getIdUsuario(); // Obtener el ID del usuario
+                System.out.println("ID del usuario: " + idUsuario); // Imprimir el ID del usuario en la consola
+                trabajoMantenitze ventanaTrabajoMantenitze = new trabajoMantenitze(idUsuario);
                 ventanaTrabajoMantenitze.setSize(800, 500);
                 ventanaTrabajoMantenitze.setLocationRelativeTo(null);
-                // Hacer visible la ventana trabajoMantenitze
                 ventanaTrabajoMantenitze.setVisible(true);
-                // Cerrar la ventana actual de konponduBizikletaMantenitze
                 dispose();
             }
         });
 
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-            gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING)
+            gl_contentPane.createParallelGroup(Alignment.LEADING)
                 .addGroup(gl_contentPane.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-                        .addGroup(gl_contentPane.createSequentialGroup()
+                    .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                        .addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
                             .addComponent(lblIdBizikleta)
                             .addPreferredGap(ComponentPlacement.UNRELATED)
                             .addComponent(textFieldId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(ComponentPlacement.UNRELATED)
-                            .addComponent(btnKonpondu)
-                            .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAtras)
-                            .addGap(10))
+                            .addComponent(btnKonpondu))
                         .addGroup(gl_contentPane.createSequentialGroup()
                             .addComponent(lblNewLabel)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+                            .addGap(0, 441, Short.MAX_VALUE))
+                        .addGroup(gl_contentPane.createSequentialGroup()
                             .addGap(246)
                             .addComponent(btnSiguiente)
                             .addGap(246)))
                     .addContainerGap())
         );
         gl_contentPane.setVerticalGroup(
-            gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING)
+            gl_contentPane.createParallelGroup(Alignment.LEADING)
                 .addGroup(gl_contentPane.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(lblNewLabel)
                     .addPreferredGap(ComponentPlacement.UNRELATED)
-                    .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
                         .addComponent(lblIdBizikleta)
                         .addComponent(textFieldId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnKonpondu)
-                        .addComponent(btnAtras))
+                        .addComponent(btnKonpondu))
                     .addPreferredGap(ComponentPlacement.UNRELATED)
                     .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
                     .addGap(18)
@@ -172,8 +160,6 @@ public class konponduBizikletaMantenitze extends JFrame {
                     .addContainerGap(34, Short.MAX_VALUE))
         );
         contentPane.setLayout(gl_contentPane);
-
-        loadData();
     }
 
     private void loadData() {

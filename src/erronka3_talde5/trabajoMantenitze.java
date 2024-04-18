@@ -30,12 +30,13 @@ public class trabajoMantenitze extends JFrame {
     private JTextField textFieldEgoera;
     private JTextField textFieldDeskripzioa;
     private JTextField textFieldIdMantenua;
+    private int idLangilea; // Variable para almacenar el ID del usuario
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    trabajoMantenitze frame = new trabajoMantenitze();
+                    trabajoMantenitze frame = new trabajoMantenitze(1); // Pasamos un ID fijo para la demostración
                     frame.setSize(800, 500);
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
@@ -46,7 +47,8 @@ public class trabajoMantenitze extends JFrame {
         });
     }
 
-    public trabajoMantenitze() {
+    public trabajoMantenitze(int idLangilea) {
+        this.idLangilea = idLangilea; // Asignamos el ID del usuario recibido
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
         contentPane = new JPanel();
@@ -77,72 +79,53 @@ public class trabajoMantenitze extends JFrame {
         textFieldIdMantenua = new JTextField();
         textFieldIdMantenua.setColumns(10);
 
-        JButton btnAtras = new JButton("Atrás");
-        btnAtras.addActionListener(e -> {
-            // Crear una instancia de la ventana konponduBizikletaMantenitze
-            konponduBizikletaMantenitze ventanaKonpondu = new konponduBizikletaMantenitze(1);
-            // Ajustar tamaño y posición de la ventana
-            ventanaKonpondu.setSize(800, 500);
-            ventanaKonpondu.setLocationRelativeTo(null);
-            // Hacer visible la ventana konponduBizikletaMantenitze
-            ventanaKonpondu.setVisible(true);
-            // Cerrar la ventana actual de trabajoMantenitze
-            dispose();
-        });
-
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-        	gl_contentPane.createParallelGroup(Alignment.LEADING)
-        		.addGroup(gl_contentPane.createSequentialGroup()
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addContainerGap()
-        					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-        						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
-        						.addGroup(gl_contentPane.createSequentialGroup()
-        							.addComponent(lblEgoera)
-        							.addGap(18)
-        							.addComponent(textFieldEgoera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addGap(36)
-        							.addComponent(lblDeskripzioa)
-        							.addPreferredGap(ComponentPlacement.UNRELATED)
-        							.addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addGap(18)
-        							.addComponent(btnGuardar)
-        							.addPreferredGap(ComponentPlacement.RELATED, 138, Short.MAX_VALUE))
-        						.addGroup(gl_contentPane.createSequentialGroup()
-        							.addComponent(lblNewLabel)
-        							.addPreferredGap(ComponentPlacement.UNRELATED)
-        							.addComponent(lblIdMantenua)
-        							.addGap(18)
-        							.addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addPreferredGap(ComponentPlacement.RELATED, 310, Short.MAX_VALUE))))
-        				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addGap(42)
-        					.addComponent(btnAtras)))
-        			.addContainerGap())
+            gl_contentPane.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_contentPane.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                            .addComponent(lblEgoera)
+                            .addGap(18)
+                            .addComponent(textFieldEgoera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(36)
+                            .addComponent(lblDeskripzioa)
+                            .addPreferredGap(ComponentPlacement.UNRELATED)
+                            .addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(18)
+                            .addComponent(btnGuardar)
+                            .addPreferredGap(ComponentPlacement.RELATED, 138, Short.MAX_VALUE))
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                            .addComponent(lblNewLabel)
+                            .addPreferredGap(ComponentPlacement.UNRELATED)
+                            .addComponent(lblIdMantenua)
+                            .addGap(18)
+                            .addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED, 310, Short.MAX_VALUE)))
+                    .addContainerGap())
         );
         gl_contentPane.setVerticalGroup(
-        	gl_contentPane.createParallelGroup(Alignment.LEADING)
-        		.addGroup(gl_contentPane.createSequentialGroup()
-        			.addComponent(btnAtras)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addComponent(lblNewLabel)
-        				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        					.addComponent(lblIdMantenua)
-        					.addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        					.addComponent(lblEgoera)
-        					.addComponent(lblDeskripzioa)
-        					.addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addComponent(btnGuardar))
-        				.addComponent(textFieldEgoera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(104, Short.MAX_VALUE))
+            gl_contentPane.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_contentPane.createSequentialGroup()
+                    .addGap(27)
+                    .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addComponent(lblNewLabel)
+                        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(lblIdMantenua)
+                            .addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(lblEgoera)
+                            .addComponent(lblDeskripzioa)
+                            .addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuardar))
+                        .addComponent(textFieldEgoera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(104, Short.MAX_VALUE))
         );
         contentPane.setLayout(gl_contentPane);
 
@@ -212,5 +195,4 @@ public class trabajoMantenitze extends JFrame {
             System.out.println("Por favor ingresa valores válidos para ID Mantenua, Egoera y Deskripzioa.");
         }
     }
-
 }

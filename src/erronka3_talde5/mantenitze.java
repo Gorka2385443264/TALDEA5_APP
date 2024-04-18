@@ -52,14 +52,14 @@ public class mantenitze extends JFrame {
         btnmantenitzeBizikleta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Crear una instancia de la ventana konponduBizikletaMantenitze
-                konponduBizikletaMantenitze ventanaKonponduBizikleta = new konponduBizikletaMantenitze(1); // Aquí debes proporcionar el ID del usuario que ha iniciado sesión
+                konponduBizikletaMantenitze ventanaKonponduBizikleta = new konponduBizikletaMantenitze(new main());
                 // Ajustar tamaño y posición de la ventana
                 ventanaKonponduBizikleta.setSize(800, 500);
                 ventanaKonponduBizikleta.setLocationRelativeTo(null);
                 // Hacer visible la ventana konponduBizikletaMantenitze
                 ventanaKonponduBizikleta.setVisible(true);
                 // Cerrar la ventana actual de mantenitze
-                dispose();
+                setVisible(false);
             }
         });
 
