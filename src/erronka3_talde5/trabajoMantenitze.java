@@ -30,13 +30,14 @@ public class trabajoMantenitze extends JFrame {
     private JTextField textFieldEgoera;
     private JTextField textFieldDeskripzioa;
     private JTextField textFieldIdMantenua;
-    private int idLangilea; // Variable para almacenar el ID del usuario
+    private int idUsuario;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    trabajoMantenitze frame = new trabajoMantenitze(1); // Pasamos un ID fijo para la demostración
+                    int idUsuario = 1; // ID de ejemplo
+                    trabajoMantenitze frame = new trabajoMantenitze(idUsuario);
                     frame.setSize(800, 500);
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
@@ -47,8 +48,8 @@ public class trabajoMantenitze extends JFrame {
         });
     }
 
-    public trabajoMantenitze(int idLangilea) {
-        this.idLangilea = idLangilea; // Asignamos el ID del usuario recibido
+    public trabajoMantenitze(int idUsuario) {
+        this.idUsuario = idUsuario;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
         contentPane = new JPanel();
@@ -135,33 +136,27 @@ public class trabajoMantenitze extends JFrame {
     private void loadData() {
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
-            Statement stmt = conn.createStatement();
             String query = "SELECT id_mantenua, id_langilea, id_bizikleta, data, egoera, deskripzioa FROM mantenua";
-            ResultSet rs = stmt.executeQuery(query);
+            try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+                DefaultTableModel model = new DefaultTableModel();
+                table.setModel(model);
+                model.addColumn("ID Mantenua");
+                model.addColumn("ID Langilea");
+                model.addColumn("ID Bizikleta");
+                model.addColumn("Data");
+                model.addColumn("Egoera");
+                model.addColumn("Deskripzioa");
 
-            DefaultTableModel model = new DefaultTableModel();
-            table.setModel(model);
-
-            model.addColumn("ID Mantenua");
-            model.addColumn("ID Langilea");
-            model.addColumn("ID Bizikleta");
-            model.addColumn("Data");
-            model.addColumn("Egoera");
-            model.addColumn("Deskripzioa");
-
-            while (rs.next()) {
-                int id_mantenua = rs.getInt("id_mantenua");
-                int id_langilea = rs.getInt("id_langilea");
-                int id_bizikleta = rs.getInt("id_bizikleta");
-                String data = rs.getString("data");
-                String egoera = rs.getString("egoera");
-                String deskripzioa = rs.getString("deskripzioa");
-                model.addRow(new Object[]{id_mantenua, id_langilea, id_bizikleta, data, egoera, deskripzioa});
+                while (rs.next()) {
+                    int id_mantenua = rs.getInt("id_mantenua");
+                    int id_langilea = rs.getInt("id_langilea");
+                    int id_bizikleta = rs.getInt("id_bizikleta");
+                    String data = rs.getString("data");
+                    String egoera = rs.getString("egoera");
+                    String deskripzioa = rs.getString("deskripzioa");
+                    model.addRow(new Object[]{id_mantenua, id_langilea, id_bizikleta, data, egoera, deskripzioa});
+                }
             }
-
-            rs.close();
-            stmt.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -175,19 +170,18 @@ public class trabajoMantenitze extends JFrame {
             try {
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
                 String updateQuery = "UPDATE mantenua SET egoera = ?, deskripzioa = ? WHERE id_mantenua = ?";
-                PreparedStatement pstmt = conn.prepareStatement(updateQuery);
-                pstmt.setString(1, egoera);
-                pstmt.setString(2, deskripzioa);
-                pstmt.setInt(3, Integer.parseInt(idMantenua));
-                int rowsAffected = pstmt.executeUpdate();
-                if (rowsAffected > 0) {
-                    System.out.println("Actualización exitosa en la base de datos.");
-                    loadData(); // Recargar los datos en la tabla después de la actualización
-                } else {
-                    System.out.println("No se pudo actualizar el registro en la base de datos.");
+                try (PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
+                    pstmt.setString(1, egoera);
+                    pstmt.setString(2, deskripzioa);
+                    pstmt.setInt(3, Integer.parseInt(idMantenua));
+                    int rowsAffected = pstmt.executeUpdate();
+                    if (rowsAffected > 0) {
+                        System.out.println("Actualización exitosa en la base de datos.");
+                        loadData(); // Recargar los datos en la tabla después de la actualización
+                    } else {
+                        System.out.println("No se pudo actualizar el registro en la base de datos.");
+                    }
                 }
-                pstmt.close();
-                conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

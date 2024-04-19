@@ -31,17 +31,16 @@ public class konponduBizikletaMantenitze extends JFrame {
     private JTable table;
     private Connection conn;
     private JTextField textFieldId;
-    private int idLangilea; // Variable para almacenar el ID del usuario
-    private main mainInstance;
+    private int idUsuario; // Agregar un atributo para almacenar la ID del usuario
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    main mainInstance = new main();
-                    int idLangilea = mainInstance.getIdUsuario();
+                    app mainInstance = new app(); // Crear una instancia de app
+                    int idLangilea = mainInstance.getIdUsuario(); // Obtener la ID del usuario
                     System.out.println("ID del langilea en konponduBizikletaMantenitze: " + idLangilea);
-                    konponduBizikletaMantenitze frame = new konponduBizikletaMantenitze(mainInstance);
+                    konponduBizikletaMantenitze frame = new konponduBizikletaMantenitze(idLangilea); // Pasar la ID del usuario al constructor
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -50,8 +49,8 @@ public class konponduBizikletaMantenitze extends JFrame {
         });
     }
 
-    public konponduBizikletaMantenitze(main mainInstance) {
-        this.mainInstance = mainInstance;
+    public konponduBizikletaMantenitze(int idLangilea) { // Modificar el constructor para recibir la ID del usuario
+        this.idUsuario = idUsuario; // Almacenar la ID del usuario
         initComponents();
         loadData();
     }
@@ -87,9 +86,8 @@ public class konponduBizikletaMantenitze extends JFrame {
                         stmt.executeUpdate(query);
                         
                         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        int idLangilea = mainInstance.getIdUsuario();
                         String insertQuery = "INSERT INTO mantenua (id_langilea, id_bizikleta, data, egoera, deskripzioa) VALUES "
-                                + "(" + idLangilea + ", '" + idBizikleta + "', '" + currentDate + "', 'Mantenimenduan', 'Descripción aquí')";
+                                + "(" + idUsuario + ", '" + idBizikleta + "', '" + currentDate + "', 'Mantenimenduan', 'Descripción aquí')";
                         stmt.executeUpdate(insertQuery);
                         
                         stmt.close(); // Cerrar el Statement después de ejecutar todas las consultas
@@ -106,20 +104,17 @@ public class konponduBizikletaMantenitze extends JFrame {
             }
         });
 
-
         JButton btnSiguiente = new JButton("Siguiente");
         btnSiguiente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                main mainInstance = new main(); // Supongo que tienes una instancia de main disponible
-                int idUsuario = mainInstance.getIdUsuario(); // Obtener el ID del usuario
-                System.out.println("ID del usuario: " + idUsuario); // Imprimir el ID del usuario en la consola
-                trabajoMantenitze ventanaTrabajoMantenitze = new trabajoMantenitze(idUsuario);
+                trabajoMantenitze ventanaTrabajoMantenitze = new trabajoMantenitze(idUsuario); // Pasar la ID del usuario al constructor
                 ventanaTrabajoMantenitze.setSize(800, 500);
                 ventanaTrabajoMantenitze.setLocationRelativeTo(null);
                 ventanaTrabajoMantenitze.setVisible(true);
                 dispose();
             }
         });
+
 
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(

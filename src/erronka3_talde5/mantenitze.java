@@ -16,6 +16,8 @@ public class mantenitze extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
+    private int idUsuario; // Agregar un atributo para almacenar la ID del usuario
+
 
     /**
      * Launch the application.
@@ -38,6 +40,15 @@ public class mantenitze extends JFrame {
     /**
      * Create the frame.
      */
+    /**
+     * Create the frame.
+     */
+    
+    
+    public mantenitze(int idUsuario) { // Modificar el constructor para aceptar la ID del usuario
+        this.idUsuario = idUsuario; // Almacenar la ID del usuario
+        // Resto del constructor
+    }
     public mantenitze() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -52,7 +63,7 @@ public class mantenitze extends JFrame {
         btnmantenitzeBizikleta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Crear una instancia de la ventana konponduBizikletaMantenitze
-                konponduBizikletaMantenitze ventanaKonponduBizikleta = new konponduBizikletaMantenitze(new main());
+                konponduBizikletaMantenitze ventanaKonponduBizikleta = new konponduBizikletaMantenitze(idUsuario);
                 // Ajustar tamaño y posición de la ventana
                 ventanaKonponduBizikleta.setSize(800, 500);
                 ventanaKonponduBizikleta.setLocationRelativeTo(null);
@@ -63,12 +74,13 @@ public class mantenitze extends JFrame {
             }
         });
 
+
         
         JButton btnAtras = new JButton("Atras");
         btnAtras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Crear una instancia de la ventana principal
-                main ventanaMain = new main();
+                app ventanaMain = new app();
                 // Hacer visible la ventana principal
                 ventanaMain.setVisible(true);
                 // Cerrar la ventana actual de mantenitze
@@ -103,4 +115,5 @@ public class mantenitze extends JFrame {
         );
         contentPane.setLayout(gl_contentPane);
     }
+
 }

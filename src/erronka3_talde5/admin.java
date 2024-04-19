@@ -42,7 +42,7 @@ public class admin extends JFrame {
         JButton btnAtras = new JButton("Atras");
         btnAtras.addActionListener(e -> {
             // Crear una instancia de la ventana principal
-            main ventanaMain = new main();
+        	app ventanaMain = new app();
             // Hacer visible la ventana principal
             ventanaMain.setVisible(true);
             // Cerrar la ventana actual de mantenitze
