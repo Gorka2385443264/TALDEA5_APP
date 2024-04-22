@@ -1,39 +1,22 @@
 package src.erronka3_talde5;
 
-import com.itextpdf.io.font.constants.StandardFonts;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.element.Paragraph;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import java.awt.EventQueue;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 public class fakturaLangilea extends JFrame {
 
@@ -44,14 +27,12 @@ public class fakturaLangilea extends JFrame {
     private JTextField txtIdAlokairua;
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    fakturaLangilea frame = new fakturaLangilea();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                fakturaLangilea frame = new fakturaLangilea();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -64,22 +45,14 @@ public class fakturaLangilea extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        // Botón para ir atrás
-        JButton btnAtras = new JButton("Atras");
-        btnAtras.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Crear una instancia de la ventana langilea
-                langilea ventanaLangilea = new langilea();
-                // Hacer visible la ventana langilea
-                ventanaLangilea.setVisible(true);
-                // Cerrar la ventana actual de fakturaLangilea
-                dispose();
-            }
+        JButton btnAtras = new JButton("Atrás");
+        btnAtras.addActionListener(e -> {
+            // Regresar a la ventana anterior
+            dispose();
         });
         btnAtras.setBounds(10, 10, 89, 23);
         contentPane.add(btnAtras);
 
-        // Etiqueta y campo de texto para ingresar la ID de alokairua
         JLabel lblIdAlokairua = new JLabel("ID de Alokairua:");
         lblIdAlokairua.setBounds(10, 454, 100, 14);
         contentPane.add(lblIdAlokairua);
@@ -89,48 +62,26 @@ public class fakturaLangilea extends JFrame {
         contentPane.add(txtIdAlokairua);
         txtIdAlokairua.setColumns(10);
 
-        // JTable para mostrar la base de datos
         table = new JTable();
-        table.setBounds(10, 44, 774, 365);
-        contentPane.add(table);
-
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(10, 44, 774, 365);
         contentPane.add(scrollPane);
+        scrollPane.setViewportView(table);
 
-        // Botón para hacer factura
         JButton btnHacerFactura = new JButton("Hacer Factura");
-        btnHacerFactura.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para generar la factura
-                generarFactura();
-            }
+        btnHacerFactura.addActionListener(e -> {
+            generarFactura();
         });
         btnHacerFactura.setBounds(10, 482, 129, 23);
         contentPane.add(btnHacerFactura);
 
-        // Botón para cargar el archivo de texto
-        JButton btnCargarArchivo = new JButton("Cargar Archivo");
-        btnCargarArchivo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para cargar el archivo de texto
-                cargarArchivoTexto();
-            }
-        });
-        btnCargarArchivo.setBounds(149, 482, 129, 23);
-        contentPane.add(btnCargarArchivo);
-
-        // Botón para generar el PDF
         JButton btnGenerarPdf = new JButton("Generar PDF");
-        btnGenerarPdf.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                generarPDF();
-            }
+        btnGenerarPdf.addActionListener(e -> {
+            generarPDF();
         });
         btnGenerarPdf.setBounds(288, 482, 129, 23);
         contentPane.add(btnGenerarPdf);
 
-        // Establecer conexión a la base de datos
         try {
             connection = DatabaseConnection.getConnection();
             cargarDatosTabla();
@@ -140,13 +91,11 @@ public class fakturaLangilea extends JFrame {
         }
     }
 
-    // Método para cargar los datos de la base de datos en la JTable
     private void cargarDatosTabla() {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM erronka3.alokairua");
 
-            // Crear modelo de la tabla con los nombres de las columnas
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("id_bezeroa");
             model.addColumn("id_bizikleta");
@@ -154,7 +103,6 @@ public class fakturaLangilea extends JFrame {
             model.addColumn("prezioa");
             model.addColumn("data");
 
-            // Llenar modelo con datos de la base de datos
             while (resultSet.next()) {
                 Object[] row = new Object[5];
                 for (int i = 0; i < 5; i++) {
@@ -163,7 +111,6 @@ public class fakturaLangilea extends JFrame {
                 model.addRow(row);
             }
 
-            // Asignar modelo a la tabla
             table.setModel(model);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -171,95 +118,84 @@ public class fakturaLangilea extends JFrame {
         }
     }
 
-    // Método para generar la factura
     private void generarFactura() {
-        // Obtener la ID de alokairua del campo de texto
         String idAlokairua = txtIdAlokairua.getText().trim();
         if (idAlokairua.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese la ID de alokairua", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Lógica para generar la factura usando la ID de alokairua
-        // Por ahora, simplemente mostrar un mensaje
         JOptionPane.showMessageDialog(null, "Factura generada con éxito para la ID de alokairua: " + idAlokairua, "Factura Generada", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // Método para cargar el archivo de texto
-    private void cargarArchivoTexto() {
-        try {
-            List<String> lines = Files.readAllLines(Paths.get("archivo.txt"));
-            StringBuilder content = new StringBuilder();
-            for (String line : lines) {
-                content.append(line).append("\n");
-            }
-            JOptionPane.showMessageDialog(null, "Archivo cargado con éxito:\n\n" + content.toString(), "Archivo Cargado", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al cargar el archivo de texto", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    // Método para generar el PDF
     private void generarPDF() {
         try {
-            // Obtener el nombre del archivo PDF
             String pdfFileName = "factura.pdf";
 
-            // Crear un nuevo documento PDF
-            PdfWriter writer = new PdfWriter(pdfFileName);
-            PdfDocument pdfDocument = new PdfDocument(writer);
-            Document document = new Document(pdfDocument);
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage(PDRectangle.A4);
+            document.addPage(page);
 
-            // Crear la tabla PDF
-            Table pdfTable = new Table(table.getColumnCount());
-            PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            // Agregar encabezados de columna
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+
+            float startX = 50;
+            float startY = page.getMediaBox().getHeight() - 50;
+
+            contentStream.beginText();
+            contentStream.newLineAtOffset(startX, startY);
+            contentStream.showText("FACTURA");
+            contentStream.endText();
+
+            float tableStartX = 50;
+            float tableStartY = page.getMediaBox().getHeight() - 100;
+
             for (int i = 0; i < table.getColumnCount(); i++) {
-                pdfTable.addHeaderCell(new Cell().add(new com.itextpdf.layout.element.Paragraph(table.getColumnName(i)).setFont(font)));
+                String columnName = table.getColumnName(i);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(tableStartX + (i * 100), tableStartY);
+                contentStream.showText(columnName);
+                contentStream.endText();
             }
 
-            // Agregar filas de datos
             for (int i = 0; i < table.getRowCount(); i++) {
                 for (int j = 0; j < table.getColumnCount(); j++) {
-                    pdfTable.addCell(new Cell().add(new com.itextpdf.layout.element.Paragraph(table.getValueAt(i, j).toString()).setFont(font)));
+                    String cellValue = table.getValueAt(i, j).toString();
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(tableStartX + (j * 100), tableStartY - ((i + 1) * 20));
+                    contentStream.showText(cellValue);
+                    contentStream.endText();
                 }
             }
 
-            // Agregar la tabla al documento
-            document.add(pdfTable);
+            contentStream.close();
 
-            // Cerrar el documento
+            document.save(pdfFileName);
             document.close();
 
             JOptionPane.showMessageDialog(null, "PDF generado correctamente", "PDF Generado", JOptionPane.INFORMATION_MESSAGE);
-        } catch (FileNotFoundException | SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al generar el PDF", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-}
 
-// Clase de conexión a la base de datos separada
-class DatabaseConnection {
-    // Configuración de la conexión a la base de datos
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/erronka3";
-    private static final String USER = "root";
-    private static final String PASS = "1WMG2023";
+    static class DatabaseConnection {
+        private static final String DB_URL = "jdbc:mysql://localhost:3306/erronka3";
+        private static final String USER = "root";
+        private static final String PASS = "1WMG2023";
 
-    // Método para establecer la conexión a la base de datos
-    public static Connection getConnection() throws SQLException {
-        Connection connection = null;
-        try {
-            // Cargar el controlador JDBC
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            // Establecer la conexión
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al cargar el controlador JDBC", "Error", JOptionPane.ERROR_MESSAGE);
+        public static Connection getConnection() throws SQLException {
+            Connection connection = null;
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al cargar el controlador JDBC", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            return connection;
         }
-        return connection;
     }
 }
