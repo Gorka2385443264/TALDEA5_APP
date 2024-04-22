@@ -1,4 +1,4 @@
-package erronka3_talde5;
+package src.erronka3_talde5;
 
 import java.awt.EventQueue;
 import java.sql.Connection;

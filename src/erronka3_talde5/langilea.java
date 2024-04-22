@@ -1,4 +1,5 @@
-package erronka3_talde5;
+package src.erronka3_talde5;
+
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -60,6 +61,19 @@ public class langilea extends JFrame {
         });
 
         JButton btnNewButton_1 = new JButton("Faktura");
+        btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Crear una instancia de la ventana fakturaLangilea
+                fakturaLangilea ventanaFaktura = new fakturaLangilea();
+                // Ajustar tamaño y posición de la ventana
+                ventanaFaktura.setSize(800, 500);
+                ventanaFaktura.setLocationRelativeTo(null);
+                // Hacer visible la ventana fakturaLangilea
+                ventanaFaktura.setVisible(true);
+                // Cerrar la ventana actual de langilea
+                dispose();
+            }
+        });
 
         JButton btnAtras = new JButton("Atras");
         btnAtras.addActionListener(e -> {
