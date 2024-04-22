@@ -1,9 +1,19 @@
-package src.erronka3_talde5;import java.awt.EventQueue;
+package src.erronka3_talde5;
+
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Paragraph;
+
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -110,6 +120,16 @@ public class fakturaLangilea extends JFrame {
         btnCargarArchivo.setBounds(149, 482, 129, 23);
         contentPane.add(btnCargarArchivo);
 
+        // Botón para generar el PDF
+        JButton btnGenerarPdf = new JButton("Generar PDF");
+        btnGenerarPdf.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                generarPDF();
+            }
+        });
+        btnGenerarPdf.setBounds(288, 482, 129, 23);
+        contentPane.add(btnGenerarPdf);
+
         // Establecer conexión a la base de datos
         try {
             connection = DatabaseConnection.getConnection();
@@ -177,6 +197,46 @@ public class fakturaLangilea extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al cargar el archivo de texto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Método para generar el PDF
+    private void generarPDF() {
+        try {
+            // Obtener el nombre del archivo PDF
+            String pdfFileName = "factura.pdf";
+
+            // Crear un nuevo documento PDF
+            PdfWriter writer = new PdfWriter(pdfFileName);
+            PdfDocument pdfDocument = new PdfDocument(writer);
+            Document document = new Document(pdfDocument);
+
+            // Crear la tabla PDF
+            Table pdfTable = new Table(table.getColumnCount());
+            PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+
+            // Agregar encabezados de columna
+            for (int i = 0; i < table.getColumnCount(); i++) {
+                pdfTable.addHeaderCell(new Cell().add(new com.itextpdf.layout.element.Paragraph(table.getColumnName(i)).setFont(font)));
+            }
+
+            // Agregar filas de datos
+            for (int i = 0; i < table.getRowCount(); i++) {
+                for (int j = 0; j < table.getColumnCount(); j++) {
+                    pdfTable.addCell(new Cell().add(new com.itextpdf.layout.element.Paragraph(table.getValueAt(i, j).toString()).setFont(font)));
+                }
+            }
+
+            // Agregar la tabla al documento
+            document.add(pdfTable);
+
+            // Cerrar el documento
+            document.close();
+
+            JOptionPane.showMessageDialog(null, "PDF generado correctamente", "PDF Generado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (FileNotFoundException | SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al generar el PDF", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
