@@ -118,45 +118,65 @@ public class fakturaLangilea extends JFrame {
 
     private void generarPDF() {
         try {
-            // Obtener el nombre del archivo PDF
-            String pdfFileName = "factura2.pdf";
+            final String pdfFileName = "factura.pdf";
 
             // Crear un nuevo documento PDF
             PDDocument document = new PDDocument();
+
+            // Crear la página del documento
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
             // Crear el flujo de contenido para escribir en el documento
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            // Definir la fuente y el tamaño del texto
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            // Definir la ruta del archivo de imagen del logo
+            String logoPath = "logo.png";
 
-            // Cargar el logo
-            PDImageXObject logo = PDImageXObject.createFromFile("logo.png", document);
-            float logoWidth = logo.getWidth();
-            float logoHeight = logo.getHeight();
+            // Cargar el logo como un objeto de imagen
+            PDImageXObject logoImage = PDImageXObject.createFromFile(logoPath, document);
 
-            // Definir las coordenadas para el logo
+            // Obtener las dimensiones del logo
+            float logoWidth = logoImage.getWidth();
+            float logoHeight = logoImage.getHeight();
+
+            // Definir las coordenadas para colocar el logo centrado horizontalmente en la parte superior de la página
             float logoX = (page.getMediaBox().getWidth() - logoWidth) / 2;
             float logoY = page.getMediaBox().getHeight() - 50 - logoHeight;
 
-            // Agregar el logo al documento
-            contentStream.drawImage(logo, logoX, logoY, logoWidth, logoHeight);
+            // Dibujar el logo en la página
+            contentStream.drawImage(logoImage, logoX, logoY, logoWidth, logoHeight);
 
-            // Definir las coordenadas para comenzar a escribir el texto debajo del logo
-            float textStartX = (page.getMediaBox().getWidth() - 300) / 2;
-            float textStartY = logoY - 50;
+            // Definir la fuente y el tamaño del texto para el título (La factura de alquiler Nº)
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 32);
+
+            // Centrar el título horizontalmente
+            float titleWidth = PDType1Font.HELVETICA_BOLD.getStringWidth("La factura de alquiler Nº") / 1000f * 32;
+            float titleX = (page.getMediaBox().getWidth() - titleWidth) / 2;
+
+            // Definir las coordenadas para comenzar a escribir el texto del título
+            float titleY = logoY - 100;
+
+            // Agregar el título al documento
+            contentStream.beginText();
+            contentStream.newLineAtOffset(titleX, titleY);
+            contentStream.showText("La factura de alquiler Nº " + txtIdAlokairua.getText()); // Concatenar el número de id_alokairua
+            contentStream.endText();
+
+            // Dibujar la línea horizontal
+            contentStream.moveTo(50, titleY - 20);
+            contentStream.lineTo(page.getMediaBox().getWidth() - 50, titleY - 20);
+            contentStream.stroke();
+
+            // Definir la fuente y el tamaño del texto para los detalles (Cliente, Bicicleta, etc.)
+            contentStream.setFont(PDType1Font.HELVETICA, 24);
+
+            // Definir las coordenadas para comenzar a escribir el texto de los detalles
+            float textStartX = 50;
+            float textStartY = titleY - 150;
 
             // Obtener el número de factura (ID de alquiler) del campo de texto
             String idAlokairua = txtIdAlokairua.getText().trim();
-
-            // Agregar el texto debajo del logo
-            String texto = "La factura de alquiler Nº " + idAlokairua;
-            contentStream.beginText();
-            contentStream.newLineAtOffset(textStartX, textStartY);
-            contentStream.showText(texto);
-            contentStream.endText();
 
             // Obtener el ID del cliente (id_bezeroa) asociado al ID de alquiler (id_alokairua) desde la base de datos
             String idBezeroa = "";
@@ -177,28 +197,19 @@ public class fakturaLangilea extends JFrame {
                 resultSet2.close();
                 statement2.close();
 
-                // Agregar el texto del cliente debajo del texto anterior
-                textStartY -= 20;
-                String clienteText = "Cliente: " + cliente;
+                // Agregar el texto del cliente
                 contentStream.beginText();
                 contentStream.newLineAtOffset(textStartX, textStartY);
-                contentStream.showText(clienteText);
+                contentStream.showText("Cliente: " + cliente);
                 contentStream.endText();
 
-                // Obtener la información de la bicicleta basada en el ID de bicicleta asociado al ID de alquiler
-                String mota = "";
-                ResultSet resultSet3 = statement.executeQuery("SELECT mota FROM erronka3.bizikleta WHERE id_bizikleta IN (SELECT id_bizikleta FROM erronka3.alokairua WHERE id_alokairua = " + idAlokairua + ")");
-                if (resultSet3.next()) {
-                    mota = resultSet3.getString("mota");
-                }
-                resultSet3.close();
+                // Agregar espacio adicional
+                textStartY -= 50;
 
-                // Agregar el texto de la bicicleta debajo del texto del cliente
-                textStartY -= 20;
-                String bicicletaText = "Bicicleta: " + mota;
+                // Agregar el texto de la bicicleta
                 contentStream.beginText();
                 contentStream.newLineAtOffset(textStartX, textStartY);
-                contentStream.showText(bicicletaText);
+                contentStream.showText("Bicicleta: Mota"); // Reemplazar "Mota" con la información real obtenida de la base de datos
                 contentStream.endText();
 
                 // Obtener el precio y la fecha del alquiler
@@ -211,31 +222,37 @@ public class fakturaLangilea extends JFrame {
                 }
                 resultSet4.close();
 
-                // Agregar el texto de precio y fecha debajo del texto de la bicicleta
-                textStartY -= 20;
-                String prezioaText = "Prezioa: " + prezioa;
+                // Agregar el texto de precio y fecha
                 contentStream.beginText();
-                contentStream.newLineAtOffset(textStartX, textStartY);
-                contentStream.showText(prezioaText);
+                contentStream.newLineAtOffset(textStartX, textStartY - 50);
+                contentStream.showText("Prezioa: " + prezioa);
                 contentStream.endText();
 
-                // Agregar el texto de la fecha debajo del texto del precio
-                textStartY -= 20;
-                String dataText = "Data: " + data;
+                // Agregar el texto de la fecha
                 contentStream.beginText();
-                contentStream.newLineAtOffset(textStartX, textStartY);
-                contentStream.showText(dataText);
+                contentStream.newLineAtOffset(textStartX, textStartY - 100);
+                contentStream.showText("Data: " + data);
                 contentStream.endText();
             }
             resultSet.close();
             statement.close();
 
+            // Dibujar la línea horizontal
+            contentStream.moveTo(50, textStartY - 150);
+            contentStream.lineTo(page.getMediaBox().getWidth() - 50, textStartY - 150);
+            contentStream.stroke();
+
+            // Definir la fuente y el tamaño del texto para el agradecimiento ("Muchas Gracias!")
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 28);
+
+            // Definir las coordenadas para comenzar a escribir el texto del agradecimiento
+            float graciasX = (page.getMediaBox().getWidth() - PDType1Font.HELVETICA_BOLD.getStringWidth("Muchas Gracias!") / 1000f * 28) / 2;
+            float graciasY = textStartY - 200;
+
             // Agregar el texto de agradecimiento al final del documento
-            textStartY -= 50;
-            String agradecimiento = "Muchas Gracias!";
             contentStream.beginText();
-            contentStream.newLineAtOffset(textStartX, textStartY);
-            contentStream.showText(agradecimiento);
+            contentStream.newLineAtOffset(graciasX, graciasY);
+            contentStream.showText("Muchas Gracias!");
             contentStream.endText();
 
             // Cerrar el flujo de contenido
