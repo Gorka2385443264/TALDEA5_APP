@@ -1,6 +1,5 @@
 package src.erronka3_talde5;
 
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -16,10 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.*;
-import java.util.List;
 
 public class fakturaLangilea extends JFrame {
 
@@ -73,17 +69,10 @@ public class fakturaLangilea extends JFrame {
 
         JButton btnHacerFactura = new JButton("Hacer Factura");
         btnHacerFactura.addActionListener(e -> {
-            generarFactura();
+            generarPDF();
         });
         btnHacerFactura.setBounds(10, 482, 129, 23);
         contentPane.add(btnHacerFactura);
-
-        JButton btnGenerarPdf = new JButton("Generar PDF");
-        btnGenerarPdf.addActionListener(e -> {
-            generarPDF();
-        });
-        btnGenerarPdf.setBounds(288, 482, 129, 23);
-        contentPane.add(btnGenerarPdf);
 
         try {
             connection = DatabaseConnection.getConnection();
@@ -94,26 +83,32 @@ public class fakturaLangilea extends JFrame {
         }
     }
 
+    // Método para cargar los datos de la base de datos en la JTable
     private void cargarDatosTabla() {
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM erronka3.alokairua");
+            ResultSet resultSet = statement.executeQuery("SELECT id_bezeroa, id_bizikleta, id_alokairua, prezioa, data FROM erronka3.alokairua");
 
+            // Crear modelo de la tabla con los nombres de las columnas
             DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("id_bezeroa");
-            model.addColumn("id_bizikleta");
-            model.addColumn("id_alokairua");
-            model.addColumn("prezioa");
-            model.addColumn("data");
+            model.addColumn("ID Bezeroa");
+            model.addColumn("ID Bizikleta");
+            model.addColumn("ID Alokairua");
+            model.addColumn("Prezioa");
+            model.addColumn("Data");
 
+            // Llenar modelo con datos de la base de datos
             while (resultSet.next()) {
                 Object[] row = new Object[5];
-                for (int i = 0; i < 5; i++) {
-                    row[i] = resultSet.getObject(i + 1);
-                }
+                row[0] = resultSet.getObject("id_bezeroa");
+                row[1] = resultSet.getObject("id_bizikleta");
+                row[2] = resultSet.getObject("id_alokairua");
+                row[3] = resultSet.getObject("prezioa");
+                row[4] = resultSet.getObject("data");
                 model.addRow(row);
             }
 
+            // Asignar modelo a la tabla
             table.setModel(model);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,93 +116,141 @@ public class fakturaLangilea extends JFrame {
         }
     }
 
-    private void generarFactura() {
-        String idAlokairua = txtIdAlokairua.getText().trim();
-        if (idAlokairua.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese la ID de alokairua", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        JOptionPane.showMessageDialog(null, "Factura generada con éxito para la ID de alokairua: " + idAlokairua, "Factura Generada", JOptionPane.INFORMATION_MESSAGE);
-    }
     private void generarPDF() {
         try {
+            // Obtener el nombre del archivo PDF
             String pdfFileName = "factura2.pdf";
 
-            // Crear documento y página
+            // Crear un nuevo documento PDF
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
-            // Obtener el contenido de la página
+            // Crear el flujo de contenido para escribir en el documento
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            // Cargar el logo de la empresa como una imagen
-            PDImageXObject logo = PDImageXObject.createFromFile("logo.png", document);
+            // Definir la fuente y el tamaño del texto
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
 
-            // Obtener la posición y tamaño del logo
+            // Cargar el logo
+            PDImageXObject logo = PDImageXObject.createFromFile("logo.png", document);
             float logoWidth = logo.getWidth();
             float logoHeight = logo.getHeight();
 
-            // Posicionar el logo en la parte superior central del PDF
-            float pageWidth = page.getMediaBox().getWidth();
-            float logoX = (pageWidth - logoWidth) / 2;
-            float logoY = page.getMediaBox().getHeight() - logoHeight - 50;
+            // Definir las coordenadas para el logo
+            float logoX = (page.getMediaBox().getWidth() - logoWidth) / 2;
+            float logoY = page.getMediaBox().getHeight() - 50 - logoHeight;
+
+            // Agregar el logo al documento
             contentStream.drawImage(logo, logoX, logoY, logoWidth, logoHeight);
 
-            // Obtener el ID de alokairua del campo de texto
+            // Definir las coordenadas para comenzar a escribir el texto debajo del logo
+            float textStartX = (page.getMediaBox().getWidth() - 300) / 2;
+            float textStartY = logoY - 50;
+
+            // Obtener el número de factura (ID de alquiler) del campo de texto
             String idAlokairua = txtIdAlokairua.getText().trim();
 
-            // Texto "La factura de tu alquiler Nº" con el ID de alquiler
-            String facturaText = "La factura de tu alquiler Nº " + idAlokairua;
-            float textWidth = PDType1Font.HELVETICA.getStringWidth(facturaText) / 1000 * 12;
-            float textX = (pageWidth - textWidth) / 2;
-            float textY = logoY - 50;
-
-            // Escribir el texto "La factura de tu alquiler Nº"
+            // Agregar el texto debajo del logo
+            String texto = "La factura de alquiler Nº " + idAlokairua;
             contentStream.beginText();
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
-            contentStream.newLineAtOffset(textX, textY);
-            contentStream.showText(facturaText);
+            contentStream.newLineAtOffset(textStartX, textStartY);
+            contentStream.showText(texto);
             contentStream.endText();
 
-            // Dibujar la tabla debajo del texto de la factura
-            float tableStartX = 50;
-            float tableStartY = textY - 50;
+            // Obtener el ID del cliente (id_bezeroa) asociado al ID de alquiler (id_alokairua) desde la base de datos
+            String idBezeroa = "";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT id_bezeroa FROM erronka3.alokairua WHERE id_alokairua = " + idAlokairua);
+            if (resultSet.next()) {
+                idBezeroa = resultSet.getString("id_bezeroa");
 
-            for (int i = 0; i < table.getColumnCount(); i++) {
-                String columnName = table.getColumnName(i);
+                // Obtener el nombre completo del cliente utilizando el ID del cliente obtenido
+                String cliente = "";
+                Statement statement2 = connection.createStatement();
+                ResultSet resultSet2 = statement2.executeQuery("SELECT izena, abizena FROM erronka3.bezeroa WHERE id_bezeroa = " + idBezeroa);
+                if (resultSet2.next()) {
+                    String izena = resultSet2.getString("izena");
+                    String abizena = resultSet2.getString("abizena");
+                    cliente = izena + " " + abizena;
+                }
+                resultSet2.close();
+                statement2.close();
+
+                // Agregar el texto del cliente debajo del texto anterior
+                textStartY -= 20;
+                String clienteText = "Cliente: " + cliente;
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 10);
-                contentStream.newLineAtOffset(tableStartX + (i * 100), tableStartY);
-                contentStream.showText(columnName);
+                contentStream.newLineAtOffset(textStartX, textStartY);
+                contentStream.showText(clienteText);
+                contentStream.endText();
+
+                // Obtener la información de la bicicleta basada en el ID de bicicleta asociado al ID de alquiler
+                String mota = "";
+                ResultSet resultSet3 = statement.executeQuery("SELECT mota FROM erronka3.bizikleta WHERE id_bizikleta IN (SELECT id_bizikleta FROM erronka3.alokairua WHERE id_alokairua = " + idAlokairua + ")");
+                if (resultSet3.next()) {
+                    mota = resultSet3.getString("mota");
+                }
+                resultSet3.close();
+
+                // Agregar el texto de la bicicleta debajo del texto del cliente
+                textStartY -= 20;
+                String bicicletaText = "Bicicleta: " + mota;
+                contentStream.beginText();
+                contentStream.newLineAtOffset(textStartX, textStartY);
+                contentStream.showText(bicicletaText);
+                contentStream.endText();
+
+                // Obtener el precio y la fecha del alquiler
+                String prezioa = "";
+                String data = "";
+                ResultSet resultSet4 = statement.executeQuery("SELECT prezioa, data FROM erronka3.alokairua WHERE id_alokairua = " + idAlokairua);
+                if (resultSet4.next()) {
+                    prezioa = resultSet4.getString("prezioa");
+                    data = resultSet4.getString("data");
+                }
+                resultSet4.close();
+
+                // Agregar el texto de precio y fecha debajo del texto de la bicicleta
+                textStartY -= 20;
+                String prezioaText = "Prezioa: " + prezioa;
+                contentStream.beginText();
+                contentStream.newLineAtOffset(textStartX, textStartY);
+                contentStream.showText(prezioaText);
+                contentStream.endText();
+
+                // Agregar el texto de la fecha debajo del texto del precio
+                textStartY -= 20;
+                String dataText = "Data: " + data;
+                contentStream.beginText();
+                contentStream.newLineAtOffset(textStartX, textStartY);
+                contentStream.showText(dataText);
                 contentStream.endText();
             }
+            resultSet.close();
+            statement.close();
 
-            for (int i = 0; i < table.getRowCount(); i++) {
-                for (int j = 0; j < table.getColumnCount(); j++) {
-                    String cellValue = table.getValueAt(i, j).toString();
-                    contentStream.beginText();
-                    contentStream.setFont(PDType1Font.HELVETICA, 10);
-                    contentStream.newLineAtOffset(tableStartX + (j * 100), tableStartY - ((i + 1) * 20));
-                    contentStream.showText(cellValue);
-                    contentStream.endText();
-                }
-            }
+            // Agregar el texto de agradecimiento al final del documento
+            textStartY -= 50;
+            String agradecimiento = "Muchas Gracias!";
+            contentStream.beginText();
+            contentStream.newLineAtOffset(textStartX, textStartY);
+            contentStream.showText(agradecimiento);
+            contentStream.endText();
 
+            // Cerrar el flujo de contenido
             contentStream.close();
 
-            // Guardar y cerrar el documento
+            // Guardar el documento como archivo PDF
             document.save(pdfFileName);
             document.close();
 
             JOptionPane.showMessageDialog(null, "PDF generado correctamente", "PDF Generado", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al generar el PDF", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 
 
     static class DatabaseConnection {
