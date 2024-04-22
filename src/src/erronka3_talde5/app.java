@@ -81,11 +81,12 @@ public class app extends JFrame {
                             ventanaLangilea.setVisible(true);
                             break;
                         case "mantenitze":
-                        	mantenitze ventanaMantentze = new mantenitze(); // Pasar la ID del usuario al constructor
-                        	ventanaMantentze.setSize(800, 500); // Establecer tamaño predeterminado
-                        	ventanaMantentze.setLocationRelativeTo(null); // Centrar en la pantalla
-                        	ventanaMantentze.setVisible(true);
+                            mantenitze ventanaMantenitze = new mantenitze(idUsuario); // Pasar la ID del usuario directamente
+                            ventanaMantenitze.setSize(800, 500);
+                            ventanaMantenitze.setLocationRelativeTo(null);
+                            ventanaMantenitze.setVisible(true);
                             break;
+
                         case "admin":
                             admin ventanaAdmin = new admin(getIdUsuario()); // Pasa el idUsuario al constructor
                             ventanaAdmin.setSize(800, 500); // Establecer tamaño predeterminado
@@ -146,6 +147,7 @@ public class app extends JFrame {
 
     // Getter para obtener el valor de la ID del usuario
     public int getIdUsuario() {
+        System.out.println("Obteniendo ID del usuario: " + idUsuario);
         return idUsuario;
     }
 

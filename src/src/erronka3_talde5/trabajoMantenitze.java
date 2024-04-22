@@ -152,14 +152,15 @@ public class trabajoMantenitze extends JFrame {
     private void loadData() {
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
-            String query = "SELECT id_mantenua, id_langilea, id_bizikleta, data, egoera, deskripzioa FROM mantenua";
+            String query = "SELECT id_mantenua, id_langilea, id_bizikleta, dataHasi, dataBukatu, egoera, deskripzioa FROM mantenua";
             try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
                 DefaultTableModel model = new DefaultTableModel();
                 table.setModel(model);
                 model.addColumn("ID Mantenua");
                 model.addColumn("ID Langilea");
                 model.addColumn("ID Bizikleta");
-                model.addColumn("Data");
+                model.addColumn("Data Hasi");
+                model.addColumn("Data Bukatu");
                 model.addColumn("Egoera");
                 model.addColumn("Deskripzioa");
 
@@ -167,16 +168,26 @@ public class trabajoMantenitze extends JFrame {
                     int id_mantenua = rs.getInt("id_mantenua");
                     int id_langilea = rs.getInt("id_langilea");
                     int id_bizikleta = rs.getInt("id_bizikleta");
-                    String data = rs.getString("data");
+                    String dataHasi = rs.getString("dataHasi");
+                    String dataBukatu = rs.getString("dataBukatu");
                     String egoera = rs.getString("egoera");
                     String deskripzioa = rs.getString("deskripzioa");
-                    model.addRow(new Object[]{id_mantenua, id_langilea, id_bizikleta, data, egoera, deskripzioa});
+                    model.addRow(new Object[]{id_mantenua, id_langilea, id_bizikleta, dataHasi, dataBukatu, egoera, deskripzioa});
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
+
 
     private void guardarMantenitze() {
         String idMantenua = textFieldIdMantenua.getText().trim();
@@ -205,4 +216,5 @@ public class trabajoMantenitze extends JFrame {
             System.out.println("Por favor ingresa valores válidos para ID Mantenua, Egoera y Deskripzioa.");
         }
     }
+
 }
