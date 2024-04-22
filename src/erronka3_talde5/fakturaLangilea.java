@@ -1,14 +1,16 @@
 package src.erronka3_talde5;
 
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -130,7 +132,7 @@ public class fakturaLangilea extends JFrame {
 
     private void generarPDF() {
         try {
-            String pdfFileName = "factura.pdf";
+            String pdfFileName = "factura2.pdf";
 
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(PDRectangle.A4);
