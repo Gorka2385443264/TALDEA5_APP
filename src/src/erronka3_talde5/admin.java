@@ -26,6 +26,9 @@ public class admin extends JFrame {
             }
         });*/
     }
+    public admin() {
+        // Constructor sin parámetros
+    }
 
     public admin(int id_langilea) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
