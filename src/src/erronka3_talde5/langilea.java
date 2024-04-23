@@ -66,8 +66,7 @@ public class langilea extends JFrame {
                 // Crear una instancia de la ventana fakturaLangilea
                 fakturaLangilea ventanaFaktura = new fakturaLangilea();
                 // Ajustar tamaño y posición de la ventana
-                ventanaFaktura.setSize(800, 500);
-                ventanaFaktura.setLocationRelativeTo(null);
+  
                 // Hacer visible la ventana fakturaLangilea
                 ventanaFaktura.setVisible(true);
                 // Cerrar la ventana actual de langilea
@@ -85,21 +84,6 @@ public class langilea extends JFrame {
             dispose(); 
         });
         
-        JButton btnNewButton_2 = new JButton("Alokairu historiala");
-        btnNewButton_2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Crear una instancia de la ventana alokairuHistorialaLangilea
-                alokairuHistorialaLangilea ventanaAlokairuHistoriala = new alokairuHistorialaLangilea();
-                // Ajustar tamaño y posición de la ventana
-                ventanaAlokairuHistoriala.setSize(800, 500);
-                ventanaAlokairuHistoriala.setLocationRelativeTo(null);
-                // Hacer visible la ventana alokairuHistorialaLangilea
-                ventanaAlokairuHistoriala.setVisible(true);
-                // Cerrar la ventana actual de langilea
-                dispose();
-            }
-        });
-        
         JButton btnInfoPErts = new JButton("Informazio Pertsonala");
         btnInfoPErts.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -115,22 +99,8 @@ public class langilea extends JFrame {
             }
         });
         
-        JButton btnNewButton_4 = new JButton("Ordainketa Historiala");
-        btnNewButton_4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Crear una instancia de la ventana ordainketaHistorialaLangilea
-                ordainketaHistorialaLangilea ventanaOrdainketaHistoriala = new ordainketaHistorialaLangilea();
-                // Ajustar tamaño y posición de la ventana
-                ventanaOrdainketaHistoriala.setSize(800, 500);
-                ventanaOrdainketaHistoriala.setLocationRelativeTo(null);
-                // Hacer visible la ventana ordainketaHistorialaLangilea
-                ventanaOrdainketaHistoriala.setVisible(true);
-                // Cerrar la ventana actual de langilea
-                dispose();
-            }
-        });
-        JButton 
-        btnNewButton_5 = new JButton("Katalogoa");
+    
+        JButton btnNewButton_5 = new JButton("Katalogoa");
         btnNewButton_5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Crear una instancia de la ventana katalogoaLangilea
@@ -154,11 +124,11 @@ public class langilea extends JFrame {
         					.addComponent(btnNewButton))
         				.addComponent(btnAtras, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(gl_contentPane.createSequentialGroup()
         					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
         					.addGap(399))
-        				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+        				.addGroup(gl_contentPane.createSequentialGroup()
         					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
         						.addGroup(gl_contentPane.createSequentialGroup()
         							.addComponent(btnInfoPErts)
@@ -166,9 +136,6 @@ public class langilea extends JFrame {
         						.addGroup(gl_contentPane.createSequentialGroup()
         							.addComponent(btnNewButton_5)
         							.addGap(49)))
-        					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        						.addComponent(btnNewButton_4)
-        						.addComponent(btnNewButton_2))
         					.addGap(233))))
         		.addGroup(gl_contentPane.createSequentialGroup()
         			.addGap(38)
@@ -185,13 +152,11 @@ public class langilea extends JFrame {
         			.addGap(43)
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
         				.addComponent(btnNewButton)
-        				.addComponent(btnNewButton_2)
         				.addComponent(btnInfoPErts))
         			.addGap(52)
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
         				.addComponent(btnNewButton_1)
         				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        					.addComponent(btnNewButton_4)
         					.addComponent(btnNewButton_5)))
         			.addContainerGap())
         );
