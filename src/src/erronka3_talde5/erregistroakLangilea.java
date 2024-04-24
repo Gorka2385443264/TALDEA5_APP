@@ -116,7 +116,7 @@ public class erregistroakLangilea extends JFrame {
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM alokairua");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM bizikleta");
 
             DefaultTableModel model = new DefaultTableModel();
 
