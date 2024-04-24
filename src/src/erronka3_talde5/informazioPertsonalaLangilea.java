@@ -133,8 +133,8 @@ public class informazioPertsonalaLangilea extends JFrame {
         JLabel lblTelefonoa = new JLabel("Telefonoa");
         JLabel lblHerria = new JLabel("Herria");
         JLabel lblIdHelbidea = new JLabel("ID Langilea");
-        JLabel lblIdTelefonoa = new JLabel("ID Telefonoa");
-        JLabel lblIdHerria = new JLabel("ID Herria");
+        JLabel lblIdTelefonoa = new JLabel("ID Langilea");
+        JLabel lblIdHerria = new JLabel("ID Langilea");
 
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
