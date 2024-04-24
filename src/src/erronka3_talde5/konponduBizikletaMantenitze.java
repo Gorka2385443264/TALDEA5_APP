@@ -83,7 +83,7 @@ public class konponduBizikletaMantenitze extends JFrame {
                 String idBizikleta = textFieldId.getText().trim();
                 if (!idBizikleta.isEmpty()) {
                     try {
-                        conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");
+                        conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
                         Statement stmt = conn.createStatement();
                         String query = "UPDATE bizikleta SET egoera = 'Mantenimenduan' WHERE id_bizikleta = '" + idBizikleta + "'";
                         stmt.executeUpdate(query);
@@ -163,7 +163,7 @@ public class konponduBizikletaMantenitze extends JFrame {
 
     private void loadData() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
             Statement stmt = conn.createStatement();
             String query = "SELECT id_bizikleta, egoera FROM bizikleta WHERE egoera IN ('Gaizki', 'Mantenimenduan')";
             ResultSet rs = stmt.executeQuery(query);

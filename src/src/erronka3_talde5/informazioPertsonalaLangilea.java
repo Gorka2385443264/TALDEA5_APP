@@ -225,7 +225,7 @@ public class informazioPertsonalaLangilea extends JFrame {
     private void updateHelbidea(String id, String helbidea) {
         // Lógica para actualizar la dirección en la base de datos
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
             Statement stmt = conn.createStatement();
             String sql = "UPDATE langilea SET helbidea = '" + helbidea + "' WHERE id_langilea = '" + id + "'";
             stmt.executeUpdate(sql);
@@ -239,7 +239,7 @@ public class informazioPertsonalaLangilea extends JFrame {
     private void updateTelefonoa(String id, String telefonoa) {
         // Lógica para actualizar el teléfono en la base de datos
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
             Statement stmt = conn.createStatement();
             String sql = "UPDATE langilea SET telefonoa = '" + telefonoa + "' WHERE id_langilea = '" + id + "'";
             stmt.executeUpdate(sql);
@@ -253,7 +253,7 @@ public class informazioPertsonalaLangilea extends JFrame {
     private void updateHerria(String id, String herria) {
         // Lógica para actualizar la ciudad en la base de datos
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
             Statement stmt = conn.createStatement();
             String sql = "UPDATE langilea SET herria = '" + herria + "' WHERE id_langilea = '" + id + "'";
             stmt.executeUpdate(sql);
@@ -266,7 +266,7 @@ public class informazioPertsonalaLangilea extends JFrame {
 
     private void loadData() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM langilea");
 

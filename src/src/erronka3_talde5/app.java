@@ -37,7 +37,7 @@ public class app extends JFrame {
     public app() {
         // Establece la conexión con la base de datos
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
             System.out.println("Conexión exitosa a la base de datos.");
         } catch (SQLException e) {
             e.printStackTrace();

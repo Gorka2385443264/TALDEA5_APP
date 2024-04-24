@@ -171,7 +171,7 @@ public class kudeatuAdmin extends JFrame {
 
     private void updateMota(int idLangilea, String mota) {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
             Statement stmt = conn.createStatement();
             String sql = "UPDATE langilea SET mota = '" + mota + "' WHERE id_langilea = " + idLangilea;
             stmt.executeUpdate(sql);
@@ -184,7 +184,7 @@ public class kudeatuAdmin extends JFrame {
 
     private void updateContraseña(int idLangilea, String nuevaContraseña) {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
             Statement stmt = conn.createStatement();
             String sql = "UPDATE langilea SET pasahitza = '" + nuevaContraseña + "' WHERE id_langilea = " + idLangilea;
             stmt.executeUpdate(sql);
@@ -197,7 +197,7 @@ public class kudeatuAdmin extends JFrame {
 
     private void loadData() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM langilea");
 
