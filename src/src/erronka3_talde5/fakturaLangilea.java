@@ -44,9 +44,16 @@ public class fakturaLangilea extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JButton btnAtras = new JButton("Atrás");
+        JButton btnAtras = new JButton("Atras");
         btnAtras.addActionListener(e -> {
-            // Regresar a la ventana anterior
+            // Crear una instancia de la ventana langilea
+            langilea ventanaLangilea = new langilea();
+            // Ajustar tamaño y posición de la ventana
+            ventanaLangilea.setSize(800, 500);
+            ventanaLangilea.setLocationRelativeTo(null);
+            // Hacer visible la ventana langilea
+            ventanaLangilea.setVisible(true);
+            // Cerrar la ventana actual de alokairuHistorialaLangilea
             dispose();
         });
         btnAtras.setBounds(10, 10, 89, 23);

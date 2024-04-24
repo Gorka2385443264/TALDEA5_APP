@@ -52,7 +52,7 @@ public class erregistroakLangilea extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
 
-        JLabel lblNewLabel = new JLabel("Faktura - Langilea");
+        JLabel lblNewLabel = new JLabel("Fakturhuottrhthjiohja - Langilea");
 
         JScrollPane scrollPane = new JScrollPane();
         table = new JTable();
@@ -74,7 +74,7 @@ public class erregistroakLangilea extends JFrame {
         txtId = new JTextField();
         txtId.setColumns(10);
 
-        JLabel lblId = new JLabel("ID Alokairua:");//a
+        JLabel lblId = new JLabel("ID Langilea:");//a
 
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
@@ -112,6 +112,8 @@ public class erregistroakLangilea extends JFrame {
 
         loadData();
     }
+    
+
     private void loadData() {
         try {
             conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1@WMG2024");

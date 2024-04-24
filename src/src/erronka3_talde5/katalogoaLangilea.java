@@ -49,7 +49,7 @@ public class katalogoaLangilea extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
 
-        JLabel lblNewLabel = new JLabel("Katalogoa");
+        JLabel lblNewLabel = new JLabel("Katalogoaa");
 
         JScrollPane scrollPane = new JScrollPane();
         table = new JTable();
