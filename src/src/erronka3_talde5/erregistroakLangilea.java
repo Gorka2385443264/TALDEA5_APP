@@ -74,7 +74,7 @@ public class erregistroakLangilea extends JFrame {
         txtId = new JTextField();
         txtId.setColumns(10);
 
-        JLabel lblId = new JLabel("ID LANGILEA:");//a
+        JLabel lblId = new JLabel("ID Alokairua:");//a
 
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
