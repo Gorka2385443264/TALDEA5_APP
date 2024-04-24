@@ -1,4 +1,4 @@
-package src.erronka3_talde5;
+package erronka3_talde5;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -49,7 +49,7 @@ public class katalogoaLangilea extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
 
-        JLabel lblNewLabel = new JLabel("Katalogoa");
+        JLabel lblNewLabel = new JLabel("Katalogoaa");
 
         JScrollPane scrollPane = new JScrollPane();
         table = new JTable();
@@ -101,7 +101,7 @@ public class katalogoaLangilea extends JFrame {
 
     private void loadData() {
         try {
-        	 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM bizikleta");
 

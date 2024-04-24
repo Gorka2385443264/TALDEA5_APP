@@ -1,4 +1,4 @@
-package src.erronka3_talde5;
+package erronka3_talde5;
 
 import java.awt.EventQueue;
 import java.sql.Connection;
@@ -97,7 +97,7 @@ public class alokairuHistorialaLangilea extends JFrame {
 
     private void loadData() {
         try {
-        	 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM alokairua");
 

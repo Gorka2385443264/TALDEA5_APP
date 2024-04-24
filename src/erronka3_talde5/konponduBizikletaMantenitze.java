@@ -1,4 +1,4 @@
-package src.erronka3_talde5;
+package erronka3_talde5;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -49,12 +49,15 @@ public class konponduBizikletaMantenitze extends JFrame {
         });
     }
 
-    public konponduBizikletaMantenitze(int idLangilea) { // Modificar el constructor para recibir la ID del usuario
-        this.idUsuario = idUsuario; // Almacenar la ID del usuario
+    public konponduBizikletaMantenitze(int idLangilea) {
+        this.idUsuario = idLangilea;
         initComponents();
         loadData();
     }
 
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
     private void initComponents() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
@@ -86,7 +89,7 @@ public class konponduBizikletaMantenitze extends JFrame {
                         stmt.executeUpdate(query);
                         
                         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        String insertQuery = "INSERT INTO mantenua (id_langilea, id_bizikleta, data, egoera, deskripzioa) VALUES "
+                        String insertQuery = "INSERT INTO mantenua (id_langilea, id_bizikleta, dataHasi, egoera, deskripzioa) VALUES "
                                 + "(" + idUsuario + ", '" + idBizikleta + "', '" + currentDate + "', 'Mantenimenduan', 'Descripción aquí')";
                         stmt.executeUpdate(insertQuery);
                         
@@ -94,7 +97,7 @@ public class konponduBizikletaMantenitze extends JFrame {
                         
                         conn.close();
                         System.out.println("Actualización e inserción exitosas");
-                        loadData();
+                        loadData(); // Actualizar la tabla después de realizar las operaciones
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
@@ -104,9 +107,11 @@ public class konponduBizikletaMantenitze extends JFrame {
             }
         });
 
+
         JButton btnSiguiente = new JButton("Siguiente");
         btnSiguiente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // Crear una instancia de la ventana trabajoMantenitze
                 trabajoMantenitze ventanaTrabajoMantenitze = new trabajoMantenitze(idUsuario); // Pasar la ID del usuario al constructor
                 ventanaTrabajoMantenitze.setSize(800, 500);
                 ventanaTrabajoMantenitze.setLocationRelativeTo(null);

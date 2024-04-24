@@ -1,4 +1,4 @@
-package src.erronka3_talde5;
+package erronka3_talde5;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -25,6 +25,9 @@ public class admin extends JFrame {
                 }
             }
         });*/
+    }
+    public admin() {
+        // Constructor sin parámetros
     }
 
     public admin(int id_langilea) {

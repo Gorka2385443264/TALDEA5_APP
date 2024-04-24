@@ -1,4 +1,4 @@
-package src.erronka3_talde5;
+package erronka3_talde5;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -29,7 +29,6 @@ public class trabajoMantenitze extends JFrame {
     private JPanel contentPane;
     private JTable table;
     private Connection conn;
-    private JTextField textFieldEgoera;
     private JTextField textFieldDeskripzioa;
     private JTextField textFieldIdMantenua;
     private int idUsuario;
@@ -64,24 +63,18 @@ public class trabajoMantenitze extends JFrame {
         table = new JTable();
         scrollPane.setViewportView(table);
 
-        JLabel lblEgoera = new JLabel("Egoera:");
-
-        textFieldEgoera = new JTextField();
-        textFieldEgoera.setColumns(10);
-
         JLabel lblDeskripzioa = new JLabel("Deskripzioa:");
 
         textFieldDeskripzioa = new JTextField();
         textFieldDeskripzioa.setColumns(10);
-
-        JButton btnGuardar = new JButton("Guardar");
-        btnGuardar.addActionListener(e -> guardarMantenitze());
 
         JLabel lblIdMantenua = new JLabel("ID Mantenua:");
 
         textFieldIdMantenua = new JTextField();
         textFieldIdMantenua.setColumns(10);
 
+        JButton btnGuardar = new JButton("Guardar");
+        btnGuardar.addActionListener(e -> guardarMantenitze());
 
         JButton btnAtras = new JButton("Atrás");
         btnAtras.addActionListener(new ActionListener() {
@@ -96,53 +89,46 @@ public class trabajoMantenitze extends JFrame {
 
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-        	    gl_contentPane.createParallelGroup(Alignment.LEADING)
-        	        .addGroup(gl_contentPane.createSequentialGroup()
-        	            .addContainerGap()
-        	            .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        	                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
-        	                .addGroup(gl_contentPane.createSequentialGroup()
-        	                    .addComponent(lblEgoera)
-        	                    .addGap(18)
-        	                    .addComponent(textFieldEgoera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        	                    .addGap(36)
-        	                    .addComponent(lblDeskripzioa)
-        	                    .addPreferredGap(ComponentPlacement.UNRELATED)
-        	                    .addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        	                    .addGap(18)
-        	                    .addComponent(btnGuardar)
-        	                    .addPreferredGap(ComponentPlacement.RELATED, 138, Short.MAX_VALUE))
-        	                .addGroup(gl_contentPane.createSequentialGroup()
-        	                    .addComponent(lblNewLabel)
-        	                    .addPreferredGap(ComponentPlacement.UNRELATED)
-        	                    .addComponent(lblIdMantenua)
-        	                    .addGap(18)
-        	                    .addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        	                    .addGap(31)
-        	                    .addComponent(btnAtras)))
-        	            .addContainerGap())
-        	);
-        	gl_contentPane.setVerticalGroup(
-        	    gl_contentPane.createParallelGroup(Alignment.LEADING)
-        	        .addGroup(gl_contentPane.createSequentialGroup()
-        	            .addGap(27)
-        	            .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        	                .addComponent(lblNewLabel)
-        	                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        	                    .addComponent(lblIdMantenua)
-        	                    .addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        	                    .addComponent(btnAtras)))
-        	            .addPreferredGap(ComponentPlacement.RELATED)
-        	            .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        	                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        	                    .addComponent(lblEgoera)
-        	                    .addComponent(lblDeskripzioa)
-        	                    .addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        	                    .addComponent(btnGuardar))
-        	                .addComponent(textFieldEgoera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        	            .addPreferredGap(ComponentPlacement.RELATED)
-        	            .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
-        	            .addContainerGap(104, Short.MAX_VALUE))
+                gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+                                        .addGroup(gl_contentPane.createSequentialGroup()
+                                                .addComponent(lblDeskripzioa)
+                                                .addPreferredGap(ComponentPlacement.UNRELATED)
+                                                .addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18)
+                                                .addComponent(btnGuardar)
+                                                .addPreferredGap(ComponentPlacement.RELATED, 225, Short.MAX_VALUE))
+                                        .addGroup(gl_contentPane.createSequentialGroup()
+                                                .addComponent(lblNewLabel)
+                                                .addPreferredGap(ComponentPlacement.UNRELATED)
+                                                .addComponent(lblIdMantenua)
+                                                .addGap(18)
+                                                .addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                                                .addComponent(btnAtras)))
+                                .addContainerGap())
+        );
+        gl_contentPane.setVerticalGroup(
+                gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                                .addGap(27)
+                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(lblNewLabel)
+                                        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+                                                .addComponent(lblIdMantenua)
+                                                .addComponent(textFieldIdMantenua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnAtras)))
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(lblDeskripzioa)
+                                        .addComponent(textFieldDeskripzioa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnGuardar))
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(104, Short.MAX_VALUE))
         );
         contentPane.setLayout(gl_contentPane);
 
@@ -152,14 +138,15 @@ public class trabajoMantenitze extends JFrame {
     private void loadData() {
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
-            String query = "SELECT id_mantenua, id_langilea, id_bizikleta, data, egoera, deskripzioa FROM mantenua";
+            String query = "SELECT id_mantenua, id_langilea, id_bizikleta, dataHasi, dataBukatu, egoera, deskripzioa FROM mantenua";
             try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
                 DefaultTableModel model = new DefaultTableModel();
                 table.setModel(model);
                 model.addColumn("ID Mantenua");
                 model.addColumn("ID Langilea");
                 model.addColumn("ID Bizikleta");
-                model.addColumn("Data");
+                model.addColumn("Data Hasi");
+                model.addColumn("Data Bukatu");
                 model.addColumn("Egoera");
                 model.addColumn("Deskripzioa");
 
@@ -167,42 +154,77 @@ public class trabajoMantenitze extends JFrame {
                     int id_mantenua = rs.getInt("id_mantenua");
                     int id_langilea = rs.getInt("id_langilea");
                     int id_bizikleta = rs.getInt("id_bizikleta");
-                    String data = rs.getString("data");
+                    String dataHasi = rs.getString("dataHasi");
+                    String dataBukatu = rs.getString("dataBukatu");
                     String egoera = rs.getString("egoera");
                     String deskripzioa = rs.getString("deskripzioa");
-                    model.addRow(new Object[]{id_mantenua, id_langilea, id_bizikleta, data, egoera, deskripzioa});
+                    model.addRow(new Object[]{id_mantenua, id_langilea, id_bizikleta, dataHasi, dataBukatu, egoera, deskripzioa});
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
+
     private void guardarMantenitze() {
         String idMantenua = textFieldIdMantenua.getText().trim();
-        String egoera = textFieldEgoera.getText().trim();
         String deskripzioa = textFieldDeskripzioa.getText().trim();
-        if (!idMantenua.isEmpty() && !egoera.isEmpty() && !deskripzioa.isEmpty()) {
+        if (!idMantenua.isEmpty() && !deskripzioa.isEmpty()) {
             try {
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
-                String updateQuery = "UPDATE mantenua SET egoera = ?, deskripzioa = ? WHERE id_mantenua = ?";
-                try (PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
-                    pstmt.setString(1, egoera);
+                String updateMantenuaQuery = "UPDATE mantenua SET egoera = ?, deskripzioa = ?, dataBukatu = CURRENT_DATE WHERE id_mantenua = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(updateMantenuaQuery)) {
+                    pstmt.setString(1, "Ondo");
                     pstmt.setString(2, deskripzioa);
                     pstmt.setInt(3, Integer.parseInt(idMantenua));
                     int rowsAffected = pstmt.executeUpdate();
                     if (rowsAffected > 0) {
-                        System.out.println("Actualización exitosa en la base de datos.");
-                        loadData(); // Recargar los datos en la tabla después de la actualización
+                        System.out.println("Actualización exitosa en la tabla mantenua.");
+                        
+                        // Obtener el id_bizikleta correspondiente
+                        String getIdBizikletaQuery = "SELECT id_bizikleta FROM mantenua WHERE id_mantenua = ?";
+                        try (PreparedStatement getIdStmt = conn.prepareStatement(getIdBizikletaQuery)) {
+                            getIdStmt.setInt(1, Integer.parseInt(idMantenua));
+                            ResultSet rs = getIdStmt.executeQuery();
+                            if (rs.next()) {
+                                int idBizikleta = rs.getInt("id_bizikleta");
+                                // Actualizar la columna egoera en la tabla bizikleta
+                                String updateBizikletaQuery = "UPDATE bizikleta SET egoera = 'Ondo' WHERE id_bizikleta = ?";
+                                try (PreparedStatement updateBizikletaStmt = conn.prepareStatement(updateBizikletaQuery)) {
+                                    updateBizikletaStmt.setInt(1, idBizikleta);
+                                    updateBizikletaStmt.executeUpdate();
+                                    System.out.println("Actualización de egoera en la tabla bizikleta exitosa.");
+                                }
+                            }
+                        }
                     } else {
-                        System.out.println("No se pudo actualizar el registro en la base de datos.");
+                        System.out.println("No se pudo actualizar el registro en la tabla mantenua.");
                     }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         } else {
-            System.out.println("Por favor ingresa valores válidos para ID Mantenua, Egoera y Deskripzioa.");
+            System.out.println("Por favor ingresa valores válidos para ID Mantenua y Deskripzioa.");
         }
     }
+
 }
+

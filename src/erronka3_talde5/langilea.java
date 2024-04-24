@@ -1,4 +1,4 @@
-package src.erronka3_talde5;
+package erronka3_talde5;
 
 
 import java.awt.EventQueue;
@@ -66,8 +66,7 @@ public class langilea extends JFrame {
                 // Crear una instancia de la ventana fakturaLangilea
                 fakturaLangilea ventanaFaktura = new fakturaLangilea();
                 // Ajustar tamaño y posición de la ventana
-                ventanaFaktura.setSize(800, 500);
-                ventanaFaktura.setLocationRelativeTo(null);
+  
                 // Hacer visible la ventana fakturaLangilea
                 ventanaFaktura.setVisible(true);
                 // Cerrar la ventana actual de langilea
@@ -85,21 +84,6 @@ public class langilea extends JFrame {
             dispose(); 
         });
         
-        JButton btnNewButton_2 = new JButton("Alokairu historiala");
-        btnNewButton_2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Crear una instancia de la ventana alokairuHistorialaLangilea
-                alokairuHistorialaLangilea ventanaAlokairuHistoriala = new alokairuHistorialaLangilea();
-                // Ajustar tamaño y posición de la ventana
-                ventanaAlokairuHistoriala.setSize(800, 500);
-                ventanaAlokairuHistoriala.setLocationRelativeTo(null);
-                // Hacer visible la ventana alokairuHistorialaLangilea
-                ventanaAlokairuHistoriala.setVisible(true);
-                // Cerrar la ventana actual de langilea
-                dispose();
-            }
-        });
-        
         JButton btnInfoPErts = new JButton("Informazio Pertsonala");
         btnInfoPErts.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -114,66 +98,29 @@ public class langilea extends JFrame {
                 dispose();
             }
         });
-        
-        JButton btnNewButton_4 = new JButton("Ordainketa Historiala");
-        btnNewButton_4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Crear una instancia de la ventana ordainketaHistorialaLangilea
-                ordainketaHistorialaLangilea ventanaOrdainketaHistoriala = new ordainketaHistorialaLangilea();
-                // Ajustar tamaño y posición de la ventana
-                ventanaOrdainketaHistoriala.setSize(800, 500);
-                ventanaOrdainketaHistoriala.setLocationRelativeTo(null);
-                // Hacer visible la ventana ordainketaHistorialaLangilea
-                ventanaOrdainketaHistoriala.setVisible(true);
-                // Cerrar la ventana actual de langilea
-                dispose();
-            }
-        });
-        JButton 
-        btnNewButton_5 = new JButton("Katalogoa");
-        btnNewButton_5.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Crear una instancia de la ventana katalogoaLangilea
-                katalogoaLangilea ventanaKatalogoa = new katalogoaLangilea();
-                // Ajustar tamaño y posición de la ventana
-                ventanaKatalogoa.setSize(800, 500);
-                ventanaKatalogoa.setLocationRelativeTo(null);
-                // Hacer visible la ventana katalogoaLangilea
-                ventanaKatalogoa.setVisible(true);
-                // Cerrar la ventana actual de langilea
-                dispose();
-            }
-        });        
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
         	gl_contentPane.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_contentPane.createSequentialGroup()
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+        				.addComponent(btnAtras, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
         				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addGap(29)
-        					.addComponent(btnNewButton))
-        				.addComponent(btnAtras, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+        					.addGap(77)
+        					.addComponent(btnNewButton)))
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addPreferredGap(ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
         					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
         					.addGap(399))
-        				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-        					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-        						.addGroup(gl_contentPane.createSequentialGroup()
-        							.addComponent(btnInfoPErts)
-        							.addGap(27))
-        						.addGroup(gl_contentPane.createSequentialGroup()
-        							.addComponent(btnNewButton_5)
-        							.addGap(49)))
-        					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        						.addComponent(btnNewButton_4)
-        						.addComponent(btnNewButton_2))
-        					.addGap(233))))
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addGap(206)
+        					.addComponent(btnInfoPErts)
+        					.addContainerGap())))
         		.addGroup(gl_contentPane.createSequentialGroup()
-        			.addGap(38)
+        			.addGap(222)
         			.addComponent(btnNewButton_1)
-        			.addContainerGap(559, Short.MAX_VALUE))
+        			.addContainerGap(375, Short.MAX_VALUE))
         );
         gl_contentPane.setVerticalGroup(
         	gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -184,16 +131,11 @@ public class langilea extends JFrame {
         				.addComponent(btnAtras))
         			.addGap(43)
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(btnNewButton)
-        				.addComponent(btnNewButton_2)
-        				.addComponent(btnInfoPErts))
+        				.addComponent(btnInfoPErts)
+        				.addComponent(btnNewButton))
         			.addGap(52)
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-        				.addComponent(btnNewButton_1)
-        				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        					.addComponent(btnNewButton_4)
-        					.addComponent(btnNewButton_5)))
-        			.addContainerGap())
+        			.addComponent(btnNewButton_1)
+        			.addGap(85))
         );
         contentPane.setLayout(gl_contentPane);
     }

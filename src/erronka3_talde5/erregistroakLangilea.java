@@ -1,4 +1,4 @@
-package src.erronka3_talde5;
+package erronka3_talde5;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -28,7 +28,6 @@ public class erregistroakLangilea extends JFrame {
     private JPanel contentPane;
     private JTable table;
     private Connection conn;
-    private JTextField txtId;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -52,7 +51,7 @@ public class erregistroakLangilea extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
 
-        JLabel lblNewLabel = new JLabel("Faktura - Langilea");
+        JLabel lblNewLabel = new JLabel("Inbentarioa - Langilea");
 
         JScrollPane scrollPane = new JScrollPane();
         table = new JTable();
@@ -71,52 +70,41 @@ public class erregistroakLangilea extends JFrame {
             dispose();
         });
 
-        txtId = new JTextField();
-        txtId.setColumns(10);
-
-        JLabel lblId = new JLabel("ID Alokairua:");
-
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-            gl_contentPane.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_contentPane.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                            .addComponent(btnAtras)
-                            .addPreferredGap(ComponentPlacement.UNRELATED)
-                            .addComponent(lblNewLabel))
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                            .addComponent(lblId)
-                            .addPreferredGap(ComponentPlacement.UNRELATED)
-                            .addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap())
+        	gl_contentPane.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_contentPane.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+        				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addComponent(btnAtras)
+        					.addPreferredGap(ComponentPlacement.UNRELATED)
+        					.addComponent(lblNewLabel)))
+        			.addContainerGap())
         );
         gl_contentPane.setVerticalGroup(
-            gl_contentPane.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_contentPane.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(btnAtras)
-                        .addComponent(lblNewLabel))
-                    .addPreferredGap(ComponentPlacement.UNRELATED)
-                    .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(lblId)
-                        .addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(ComponentPlacement.UNRELATED)
-                    .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(66, Short.MAX_VALUE))
+        	gl_contentPane.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_contentPane.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(btnAtras)
+        				.addComponent(lblNewLabel))
+        			.addGap(39)
+        			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(67, Short.MAX_VALUE))
         );
         contentPane.setLayout(gl_contentPane);
 
         loadData();
     }
+    
+
     private void loadData() {
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM alokairua");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM bizikleta");
 
             DefaultTableModel model = new DefaultTableModel();
 

@@ -1,4 +1,4 @@
-package src.erronka3_talde5;
+package erronka3_talde5;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -132,9 +132,9 @@ public class informazioPertsonalaLangilea extends JFrame {
         JLabel lblHelbidea = new JLabel("Helbidea");
         JLabel lblTelefonoa = new JLabel("Telefonoa");
         JLabel lblHerria = new JLabel("Herria");
-        JLabel lblIdHelbidea = new JLabel("ID Helbidea");
-        JLabel lblIdTelefonoa = new JLabel("ID Telefonoa");
-        JLabel lblIdHerria = new JLabel("ID Herria");
+        JLabel lblIdHelbidea = new JLabel("ID Langilea");
+        JLabel lblIdTelefonoa = new JLabel("ID Langilea");
+        JLabel lblIdHerria = new JLabel("ID Langilea");
 
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
@@ -241,7 +241,7 @@ public class informazioPertsonalaLangilea extends JFrame {
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE langilea SET telefonoa = '" + telefonoa + "' WHERE id_langilea = '" + id + "'";
+            String sql = "UPDATE langilea SET telf = '" + telefonoa + "' WHERE id_langilea = '" + id + "'";
             stmt.executeUpdate(sql);
             stmt.close();
             conn.close();
