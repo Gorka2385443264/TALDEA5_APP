@@ -137,7 +137,7 @@ public class trabajoMantenitze extends JFrame {
 
     private void loadData() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
+        	conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
             String query = "SELECT id_mantenua, id_langilea, id_bizikleta, dataHasi, dataBukatu, egoera, deskripzioa FROM mantenua";
             try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
                 DefaultTableModel model = new DefaultTableModel();
@@ -180,7 +180,7 @@ public class trabajoMantenitze extends JFrame {
         String deskripzioa = textFieldDeskripzioa.getText().trim();
         if (!idMantenua.isEmpty() && !deskripzioa.isEmpty()) {
             try {
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erronka3", "root", "1WMG2023");
+            	conn = DriverManager.getConnection("jdbc:mysql://192.168.15.130:3306/erronka3", "5taldea", "1WMG2024");
                 String updateMantenuaQuery = "UPDATE mantenua SET egoera = ?, deskripzioa = ?, dataBukatu = CURRENT_DATE WHERE id_mantenua = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(updateMantenuaQuery)) {
                     pstmt.setString(1, "Ondo");

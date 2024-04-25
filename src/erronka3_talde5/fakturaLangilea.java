@@ -309,9 +309,9 @@ public class fakturaLangilea extends JFrame {
 
 
     class DatabaseConnection {
-        private static final String DB_URL = "jdbc:mysql://localhost:3306/erronka3";
-        private static final String USER = "root";
-        private static final String PASS = "1WMG2023";
+        private static final String DB_URL = "jdbc:mysql://192.168.15.130:3306/erronka3";
+        private static final String USER = "5taldea";
+        private static final String PASS = "1WMG2024";
 
         public static Connection getConnection() throws SQLException {
             Connection connection = null;
