@@ -83,6 +83,8 @@ public class trabajoMantenitze extends JFrame {
                 frame.setSize(800, 500); // Establecer tamaño
                 frame.setLocationRelativeTo(null); // Centrar en la pantalla
                 frame.setVisible(true); // Hacer visible
+                dispose();
+
             }
         });
 
